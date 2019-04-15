@@ -14,13 +14,13 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="30dp"
+        android:padding="@dimen/wrap_score_seek_bar_padding"
         android:layout_gravity="center_horizontal">
 
         <com.zjun.progressbar.CircleDotProgressBar
-            android:id="@+id/bar_all"
-            android:layout_width="320dp"
-            android:layout_height="320dp"
+            android:id="@+id/score_seek_bar"
+            android:layout_width="@dimen/score_seek_bar_size"
+            android:layout_height="@dimen/score_seek_bar_size"
             android:background="@color/LightSkyBlue"
             zjun:buttonTextSize="20sp"
             zjun:buttonTopOffset="20dp"

@@ -31,11 +31,3 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
 }
-
-
-allprojects {
-    repositories {
-        // +++添加jitpack仓库地址
-        maven { url "https://jitpack.io" }
-    }
-}
