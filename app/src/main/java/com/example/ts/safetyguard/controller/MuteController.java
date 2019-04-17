@@ -9,7 +9,8 @@ import android.util.Log;
  * RINGER_MODE_SILENT 静音,且无振动
  * RINGER_MODE_VIBRATE 静音,但有振动
  * RINGER_MODE_NORMAL 正常声音
- *
+ * <p>
+ * getMuteStatus() --- 判断当前是否为静音
  * setMute() --- 设置静音
  * cancelMute() --- 取消静音
  */
@@ -17,8 +18,26 @@ public class MuteController {
     private static final String TAG = "MuteController";
     private AudioManager mAudioManager;
 
+
     public MuteController(Context context) {
-        mAudioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+    }
+
+    public boolean getMuteStatus() {
+        int mode = mAudioManager.getRingerMode();
+        boolean muteFlag = false;
+        switch (mode) {
+            case AudioManager.RINGER_MODE_NORMAL:
+                muteFlag = false;
+                break;
+            case AudioManager.RINGER_MODE_VIBRATE:
+                muteFlag = false;
+                break;
+            case AudioManager.RINGER_MODE_SILENT:
+                muteFlag = true;
+                break;
+        }
+        return muteFlag;
     }
 
     public boolean setMute() {
@@ -42,6 +61,5 @@ public class MuteController {
             return false;
         }
     }
-
 
 }
