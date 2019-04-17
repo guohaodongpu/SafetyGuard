@@ -38,7 +38,7 @@ public class BluetoothController {
 
     //打开蓝牙
     public boolean openBluetooth(){
-        if (!getBluetoothStatus()){
+        if (isReadyBluetooth() && !getBluetoothStatus()){
             mBluetoothAdapter.enable();
             Log.d(TAG, "openBluetooth: ");
             return true;
@@ -50,7 +50,7 @@ public class BluetoothController {
 
     //关闭蓝牙
     public boolean closeBluetooth(){
-        if (getBluetoothStatus()){
+        if (isReadyBluetooth() && getBluetoothStatus()){
             mBluetoothAdapter.disable();
             Log.d(TAG, "closeBluetooth: ");
             return true;
