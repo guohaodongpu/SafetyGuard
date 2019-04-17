@@ -1,5 +1,6 @@
 package com.example.ts.safetyguard;
 
+import android.Manifest;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -238,21 +239,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void getDoNotDisturb(){
-
-        NotificationManager notificationManager = (NotificationManager)
-                MainActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager =
+                (NotificationManager) MainActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-
                 && !notificationManager.isNotificationPolicyAccessGranted()) {
 
-            Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+            Intent intent = new Intent(
+                    android.provider.Settings
+                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
 
-            getApplicationContext().startActivity(intent);
-
-            return;
+            startActivity(intent);
         }
-
     }
 
 }
