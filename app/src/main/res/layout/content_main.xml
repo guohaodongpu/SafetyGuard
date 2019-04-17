@@ -47,6 +47,7 @@
                 android:src="@drawable/ic_menu_wifi" />
 
             <ImageButton
+                android:id="@+id/on_off_bluetooth_bt"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"

@@ -1,8 +1,7 @@
 package com.example.ts.safetyguard;
 
+import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,12 +11,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.example.ts.safetyguard.controller.BluetoothController;
+import com.example.ts.safetyguard.controller.MuteController;
 import com.zjun.progressbar.CircleDotProgressBar;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
+    private NavigationView mNavigationView;
     private CircleDotProgressBar mCircleDotProgressBar;
+    private ImageButton mBluetoothIb;
+    private BluetoothController mBluetoothController;
+    private MuteController mMuteController;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +41,10 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        mCircleDotProgressBar = findViewById(R.id.score_seek_bar);
+        initController();
+        initView();
+        initEvent();
+        updateIcon();
     }
 
     @Override
@@ -92,5 +102,62 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void initView() {
+        mNavigationView = findViewById(R.id.nav_view);
+        mCircleDotProgressBar = findViewById(R.id.score_seek_bar);
+        mBluetoothIb = findViewById(R.id.on_off_bluetooth_bt);
+    }
+
+    private void initEvent() {
+        mNavigationView.setNavigationItemSelectedListener(this);
+        mBluetoothIb.setOnClickListener(this);
+    }
+
+    private void initController() {
+        mBluetoothController = new BluetoothController();
+        mMuteController = new MuteController(MainActivity.this);
+    }
+
+    private void updateIcon() {
+        if (mBluetoothController.getBluetoothStatus()) {
+            mBluetoothIb.setImageDrawable(getResources().getDrawable(R.drawable.ic_bluetooth_isopen));
+        } else {
+            mBluetoothIb.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_bluetooth));
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            //蓝牙
+            case R.id.on_off_bluetooth_bt: {
+                if (!mBluetoothController.getBluetoothStatus()) {
+                    if (mBluetoothController.openBluetooth()) {
+                        Toast.makeText(MainActivity.this,
+                                getString(R.string.toast_open_bluetooth_success),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this,
+                                getString(R.string.toast_open_bluetooth_fail),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (mBluetoothController.closeBluetooth()) {
+                        Toast.makeText(MainActivity.this,
+                                getString(R.string.toast_close_bluetooth_success),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this,
+                                getString(R.string.toast_close_bluetooth_fail),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            default: {
+
+            }
+        }
     }
 }

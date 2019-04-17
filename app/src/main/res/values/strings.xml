@@ -11,4 +11,25 @@
     <string name="electric_quantity">电量</string>
     <string name="mute">静音</string>
     <string name="system_setup">系统设置</string>
+    <string name="title_activity_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="add_account_title">添加账号</string>
+    <string name="add_qq_describe">添加用于QQ一键登录的QQ账号</string>
+    <string name="qq_username_hint">QQ号码</string>
+    <string name="qq_password_hint">密码</string>
+    <string name="toast_open_bluetooth_success">开启蓝牙成功</string>
+    <string name="toast_open_bluetooth_fail">开启蓝牙失败</string>
+    <string name="toast_close_bluetooth_success">关闭蓝牙成功</string>
+    <string name="toast_close_bluetooth_fail">关闭蓝牙失败</string>
 </resources>
