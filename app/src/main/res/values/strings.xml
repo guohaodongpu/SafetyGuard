@@ -36,4 +36,5 @@
     <string name="toast_set_mute_fail">设置静音失败</string>
     <string name="toast_cancel_mute_success">取消静音成功</string>
     <string name="toast_cancel_mute_fail">取消静音失败</string>
+    <string name="toast_username_password_false">账号或密码错误</string>
 </resources>

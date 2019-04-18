@@ -84,11 +84,31 @@
                 android:textColor="#ffffff"
                 android:textSize="17sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="无法登录？"
-                android:textColor="@color/DeepSkyBlue"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="18dp"
+                    android:text="无法登录"
+                    android:textColor="@color/DeepSkyBlue" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="right"
+                    android:layout_marginEnd="18dp"
+                    android:text="立即注册"
+                    android:textColor="@color/DeepSkyBlue" />
+            </RelativeLayout>
+
         </LinearLayout>
 
     </ScrollView>
