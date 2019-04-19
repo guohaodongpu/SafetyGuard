@@ -9,7 +9,6 @@ import android.util.Log;
  * RINGER_MODE_SILENT 静音,且无振动
  * RINGER_MODE_VIBRATE 静音,但有振动
  * RINGER_MODE_NORMAL 正常声音
- * <p>
  * getMuteStatus() --- 判断当前是否为静音
  * setMute() --- 设置静音
  * cancelMute() --- 取消静音

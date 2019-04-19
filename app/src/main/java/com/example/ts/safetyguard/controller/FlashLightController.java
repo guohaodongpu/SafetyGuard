@@ -10,6 +10,9 @@ import android.os.Build;
 
 /**
  * isReadyFlashLight() --- 判断设备是否有闪光灯
+ * getFlashLightStatus() --- 获取当前闪光灯状态
+ * lightsOn() --- 开启手电筒
+ * lightsOff() --- 关闭手电筒
  */
 public class FlashLightController {
     private static final String TAG = "FlashLightController";
