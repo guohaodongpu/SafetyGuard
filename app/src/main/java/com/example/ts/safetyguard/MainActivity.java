@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_id);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -138,11 +138,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initView() {
-        mNavigationView = findViewById(R.id.nav_view);
-        mCircleDotProgressBar = findViewById(R.id.score_seek_bar);
-        mBluetoothImageButton = findViewById(R.id.on_off_bluetooth_bt);
-        mMuteImageButton = findViewById(R.id.on_off_mute_bt);
-        mFLashLightImageButton = findViewById(R.id.on_off_flashlight_bt);
+        mNavigationView = findViewById(R.id.nav_view_id);
+        mCircleDotProgressBar = findViewById(R.id.score_seek_bar_id);
+        mBluetoothImageButton = findViewById(R.id.on_off_bluetooth_bt_id);
+        mMuteImageButton = findViewById(R.id.on_off_mute_bt_id);
+        mFLashLightImageButton = findViewById(R.id.on_off_flashlight_bt_id);
     }
 
     private void initEvent() {
@@ -239,19 +239,19 @@ public class MainActivity extends AppCompatActivity
         switch (v.getId()) {
 
             //蓝牙
-            case R.id.on_off_bluetooth_bt: {
+            case R.id.on_off_bluetooth_bt_id: {
                 showBluetoothToast();
                 break;
             }
 
             //静音
-            case R.id.on_off_mute_bt: {
+            case R.id.on_off_mute_bt_id: {
                 showMuteToast();
                 break;
             }
 
             //手电筒
-            case R.id.on_off_flashlight_bt: {
+            case R.id.on_off_flashlight_bt_id: {
                 showFlashLightToast();
                 break;
             }

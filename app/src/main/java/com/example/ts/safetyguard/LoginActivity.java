@@ -39,10 +39,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mUsernameView = findViewById(R.id.qq_username);
-        mPasswordView = findViewById(R.id.qq_password);
-        mSignInButton = findViewById(R.id.qq_sign_in_button);
-        mSignUpTextView = findViewById(R.id.go_to_sign_up);
+        mUsernameView = findViewById(R.id.qq_username_id);
+        mPasswordView = findViewById(R.id.qq_password_id);
+        mSignInButton = findViewById(R.id.qq_sign_in_button_id);
+        mSignUpTextView = findViewById(R.id.go_to_sign_up_id);
     }
 
     private void initEvent() {

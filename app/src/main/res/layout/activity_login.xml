@@ -12,12 +12,12 @@
     tools:context=".LoginActivity">
 
     <ScrollView
-        android:id="@+id/login_form"
+        android:id="@+id/login_form_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/email_login_form"
+            android:id="@+id/email_login_form_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/qq_username"
+                    android:id="@+id/qq_username_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/sign_in_margin_top"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/qq_password"
+                    android:id="@+id/qq_password_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/sign_in_margin_top"
@@ -74,7 +74,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/qq_sign_in_button"
+                android:id="@+id/qq_sign_in_button_id"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                     android:textColor="@color/DeepSkyBlue" />
 
                 <TextView
-                    android:id="@+id/go_to_sign_up"
+                    android:id="@+id/go_to_sign_up_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

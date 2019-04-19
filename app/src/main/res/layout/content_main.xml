@@ -19,7 +19,7 @@
         android:padding="@dimen/wrap_score_seek_bar_padding">
 
         <com.zjun.progressbar.CircleDotProgressBar
-            android:id="@+id/score_seek_bar"
+            android:id="@+id/score_seek_bar_id"
             android:layout_width="match_parent"
             android:layout_height="@dimen/score_seek_bar_size"
             android:background="@color/LightSkyBlue"
@@ -47,7 +47,7 @@
                 android:src="@drawable/ic_menu_wifi" />
 
             <ImageButton
-                android:id="@+id/on_off_bluetooth_bt"
+                android:id="@+id/on_off_bluetooth_bt_id"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
@@ -56,7 +56,7 @@
                 android:src="@drawable/ic_menu_bluetooth" />
 
             <ImageButton
-                android:id="@+id/on_off_mute_bt"
+                android:id="@+id/on_off_mute_bt_id"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
@@ -65,7 +65,7 @@
                 android:src="@drawable/ic_menu_mute" />
 
             <ImageButton
-                android:id="@+id/on_off_flashlight_bt"
+                android:id="@+id/on_off_flashlight_bt_id"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
