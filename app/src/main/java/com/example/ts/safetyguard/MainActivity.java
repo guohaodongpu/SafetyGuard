@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.example.ts.safetyguard.controller.AirModeController;
 import com.example.ts.safetyguard.controller.BluetoothController;
 import com.example.ts.safetyguard.controller.FlashLightController;
 import com.example.ts.safetyguard.controller.MuteController;
+import com.example.ts.safetyguard.controller.WifiController;
 import com.zjun.progressbar.CircleDotProgressBar;
 
 public class MainActivity extends AppCompatActivity
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity
     private ImageButton mBluetoothImageButton;
     private ImageButton mMuteImageButton;
     private ImageButton mFLashLightImageButton;
+    private ImageButton mWifiImageButton;
+    private WifiController mWifiController;
     private MuteController mMuteController;
     private BluetoothController mBluetoothController;
     private AirModeController mAirModeController;
@@ -56,6 +60,9 @@ public class MainActivity extends AppCompatActivity
 
         IntentFilter bluetoothFilter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(receiver, bluetoothFilter);
+
+        IntentFilter wifiFilter = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        registerReceiver(receiver,wifiFilter);
 
         getDoNotDisturb();
 
@@ -143,6 +150,7 @@ public class MainActivity extends AppCompatActivity
         mBluetoothImageButton = findViewById(R.id.on_off_bluetooth_bt_id);
         mMuteImageButton = findViewById(R.id.on_off_mute_bt_id);
         mFLashLightImageButton = findViewById(R.id.on_off_flashlight_bt_id);
+        mWifiImageButton = findViewById(R.id.on_off_wifi_bt_id);
     }
 
     private void initEvent() {
@@ -150,6 +158,7 @@ public class MainActivity extends AppCompatActivity
         mBluetoothImageButton.setOnClickListener(this);
         mMuteImageButton.setOnClickListener(this);
         mFLashLightImageButton.setOnClickListener(this);
+        mWifiImageButton.setOnClickListener(this);
     }
 
     private void initController() {
@@ -157,11 +166,13 @@ public class MainActivity extends AppCompatActivity
         mMuteController = new MuteController(MainActivity.this);
         mAirModeController = new AirModeController(MainActivity.this);
         mFlashLightController = new FlashLightController(MainActivity.this);
+        mWifiController = new WifiController(MainActivity.this);
     }
 
     private void updateAllIcon() {
         updateBluetoothIcon();
         updateMuteIcon();
+        updateWifiIcon();
     }
 
     private void updateMuteIcon() {
@@ -184,6 +195,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void updateWifiIcon() {
+        if(mWifiController.getWifiStatus()) {
+            mWifiImageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_icon_wifi_isopen));
+        }else {
+            mWifiImageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_wifi));
+        }
+    }
+
     private void updateBluetoothIcon() {
         if (mBluetoothController.getBluetoothStatus()) {
             mBluetoothImageButton.setImageDrawable(getResources().
@@ -198,6 +217,21 @@ public class MainActivity extends AppCompatActivity
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            //Wifi
+            int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE,-1);
+            switch (wifiState) {
+                case WifiManager.WIFI_STATE_DISABLED:
+                    mWifiImageButton.setImageDrawable(getResources()
+                            .getDrawable(R.drawable.ic_menu_wifi));
+                    break;
+                case WifiManager.WIFI_STATE_ENABLED:
+                    mWifiImageButton.setImageDrawable(getResources()
+                            .getDrawable(R.drawable.ic_icon_wifi_isopen));
+                    break;
+                default:
+                    break;
+            }
+
             //蓝牙
             int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1);
             switch (bluetoothState) {
@@ -237,6 +271,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+            //Wifi
+            case R.id.on_off_wifi_bt_id: {
+                showWifiToast();
+                break;
+            }
 
             //蓝牙
             case R.id.on_off_bluetooth_bt_id: {
@@ -279,6 +319,22 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+    }
+
+    private void showWifiToast() {
+        if(!mWifiController.getWifiStatus()) {
+            if(mWifiController.openWifi()) {
+                showToast(getString(R.string.toast_open_wifi_success));
+            } else {
+                showToast(getString(R.string.toast_open_wifi_fail));
+            }
+        } else {
+            if(mWifiController.closeWifi()) {
+                showToast(getString(R.string.toast_close_wifi_success));
+            } else {
+                showToast(getString(R.string.toast_close_wifi_fail));
+            }
+        }
     }
 
     private void showBluetoothToast() {

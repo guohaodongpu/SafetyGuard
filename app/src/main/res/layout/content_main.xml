@@ -39,6 +39,7 @@
         <TableRow>
 
             <ImageButton
+                android:id="@+id/on_off_wifi_bt_id"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
