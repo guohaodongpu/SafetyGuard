@@ -9,24 +9,24 @@ import android.hardware.camera2.CameraManager;
 import android.os.Build;
 
 /**
- * isReadyFlashlight() --- 判断设备是否有闪光灯
+ * isReadyFlashLight() --- 判断设备是否有闪光灯
  */
-public class FlashLampController {
-    private static final String TAG = "FlashLampController";
+public class FlashLightController {
+    private static final String TAG = "FlashLightController";
     private Camera mCamera;
     private CameraManager manager;
     private Context mContext;
 
-    public FlashLampController(Context context) {
+    public FlashLightController(Context context) {
         this.mContext = context;
     }
 
     //判断设备是否有闪光灯
-    public boolean isReadyFlashlight() {
+    public boolean isReadyFlashLight() {
         return mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
     }
 
-    public boolean isOff() {
+    public boolean getFlashLightStatus() {
         if (isVersionM()) {
             return manager == null;
         } else
@@ -35,8 +35,7 @@ public class FlashLampController {
 
     //打开手电筒
     public boolean lightsOn() {
-
-        if (isReadyFlashlight()) {
+        if (isReadyFlashLight()) {
             if (isVersionM()) {
                 linghtOn23(mContext);
                 return true;
@@ -71,12 +70,19 @@ public class FlashLampController {
         }
     }
 
-    public void lightsOff() {
-        if (isVersionM()) {
-            lightsOff23();
+    public boolean lightsOff() {
+        if (isReadyFlashLight()) {
+            if (isVersionM()) {
+                lightsOff23();
+                return true;
+            } else {
+                lightsOff22();
+                return true;
+            }
         } else {
-            lightsOff22();
+            return false;
         }
+
     }
 
 

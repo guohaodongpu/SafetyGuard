@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.ts.safetyguard.controller.AirModeController;
 import com.example.ts.safetyguard.controller.BluetoothController;
+import com.example.ts.safetyguard.controller.FlashLightController;
 import com.example.ts.safetyguard.controller.MuteController;
 import com.zjun.progressbar.CircleDotProgressBar;
 
@@ -33,9 +34,11 @@ public class MainActivity extends AppCompatActivity
     private CircleDotProgressBar mCircleDotProgressBar;
     private ImageButton mBluetoothImageButton;
     private ImageButton mMuteImageButton;
-    private BluetoothController mBluetoothController;
+    private ImageButton mFLashLightImageButton;
     private MuteController mMuteController;
+    private BluetoothController mBluetoothController;
     private AirModeController mAirModeController;
+    private FlashLightController mFlashLightController;
     private Toast mToast;
 
     @Override
@@ -139,17 +142,21 @@ public class MainActivity extends AppCompatActivity
         mCircleDotProgressBar = findViewById(R.id.score_seek_bar);
         mBluetoothImageButton = findViewById(R.id.on_off_bluetooth_bt);
         mMuteImageButton = findViewById(R.id.on_off_mute_bt);
+        mFLashLightImageButton = findViewById(R.id.on_off_flashlight_bt);
     }
 
     private void initEvent() {
         mNavigationView.setNavigationItemSelectedListener(this);
         mBluetoothImageButton.setOnClickListener(this);
         mMuteImageButton.setOnClickListener(this);
+        mFLashLightImageButton.setOnClickListener(this);
     }
 
     private void initController() {
         mBluetoothController = new BluetoothController();
         mMuteController = new MuteController(MainActivity.this);
+        mAirModeController = new AirModeController(MainActivity.this);
+        mFlashLightController = new FlashLightController(MainActivity.this);
     }
 
     private void updateAllIcon() {
@@ -164,6 +171,16 @@ public class MainActivity extends AppCompatActivity
         } else {
             mMuteImageButton.setImageDrawable(getResources().
                     getDrawable(R.drawable.ic_icon_no_mute));
+        }
+    }
+
+    private void updateFlashLightIcon() {
+        if(mFlashLightController.getFlashLightStatus()){
+            mFLashLightImageButton.setImageDrawable(getResources().
+                    getDrawable(R.drawable.ic_icon_flashlight_open));
+        } else {
+            mFLashLightImageButton.setImageDrawable(getResources().
+                    getDrawable(R.drawable.ic_icon_flashlight_close));
         }
     }
 
@@ -232,10 +249,36 @@ public class MainActivity extends AppCompatActivity
                 showMuteToast();
                 break;
             }
+
+            //手电筒
+            case R.id.on_off_flashlight_bt: {
+                showFlashLightToast();
+                break;
+            }
             default: {
                 break;
             }
         }
+    }
+
+    private void showFlashLightToast() {
+        if (mFlashLightController.getFlashLightStatus()){
+            if (mFlashLightController.lightsOn()){
+                updateFlashLightIcon();
+                showToast("开启手电筒成功");
+            } else {
+                showToast("开启手电筒失败");
+            }
+        } else {
+            if (mFlashLightController.lightsOff()){
+                updateFlashLightIcon();
+                showToast("关闭手电筒成功");
+            } else {
+                showToast("关闭手电筒失败");
+            }
+        }
+
+
     }
 
     private void showBluetoothToast() {

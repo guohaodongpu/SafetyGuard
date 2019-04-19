@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private TextView mSignUpTextView;
     private Button mSignInButton;
+
     private ContentResolver mContentResolver;
     private final String USERURI = "content://com.example.xue.myqq.UserContentProviderprovider/user";
 
