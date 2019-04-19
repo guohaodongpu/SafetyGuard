@@ -18,7 +18,6 @@ public class MuteController {
     private static final String TAG = "MuteController";
     private AudioManager mAudioManager;
 
-
     public MuteController(Context context) {
         mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
     }

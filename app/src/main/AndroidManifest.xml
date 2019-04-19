@@ -7,7 +7,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!-- 音量控制需要申请的权限-->
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-
+    <!-- 照相机需要申请的权限-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 闪光灯需要申请的权限-->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:allowBackup="true"

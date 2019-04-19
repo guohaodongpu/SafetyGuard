@@ -8,4 +8,5 @@
     <dimen name="score_seek_bar_size">320dp</dimen>
     <dimen name="wrap_score_seek_bar_padding">30dp</dimen>
     <dimen name="sign_in_margin_top">10dp</dimen>
+    <dimen name="login_title_text_size">50sp</dimen>
 </resources>

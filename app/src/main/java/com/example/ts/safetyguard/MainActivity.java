@@ -1,6 +1,5 @@
 package com.example.ts.safetyguard;
 
-import android.Manifest;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.ts.safetyguard.controller.AirModeController;
 import com.example.ts.safetyguard.controller.BluetoothController;
 import com.example.ts.safetyguard.controller.MuteController;
 import com.zjun.progressbar.CircleDotProgressBar;
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private ImageButton mMuteImageButton;
     private BluetoothController mBluetoothController;
     private MuteController mMuteController;
+    private AirModeController mAirModeController;
     private Toast mToast;
 
     @Override
@@ -150,9 +150,11 @@ public class MainActivity extends AppCompatActivity
 
     private void updateBluetoothIcon() {
         if (mBluetoothController.getBluetoothStatus()) {
-            mBluetoothImageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_icon_bluetooth_isopen));
+            mBluetoothImageButton.setImageDrawable(getResources().
+                    getDrawable(R.drawable.ic_icon_bluetooth_isopen));
         } else {
-            mBluetoothImageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_bluetooth));
+            mBluetoothImageButton.setImageDrawable(getResources().
+                    getDrawable(R.drawable.ic_menu_bluetooth));
         }
     }
 
@@ -245,8 +247,7 @@ public class MainActivity extends AppCompatActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
                 && !notificationManager.isNotificationPolicyAccessGranted()) {
 
-            Intent intent = new Intent(
-                    android.provider.Settings
+            Intent intent = new Intent(android.provider.Settings
                             .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
 
             startActivity(intent);

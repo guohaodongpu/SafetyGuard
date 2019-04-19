@@ -6,10 +6,10 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="wifi">无线</string>
-    <string name="bluetooth">蓝牙</string>
-    <string name="electric_quantity">电量</string>
-    <string name="mute">静音</string>
+    <string name="wifi">无线: OFF</string>
+    <string name="bluetooth">蓝牙: OFF</string>
+    <string name="electric_quantity">电量: 0%</string>
+    <string name="mute">静音: OFF</string>
     <string name="system_setup">系统设置</string>
     <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->
@@ -37,4 +37,10 @@
     <string name="toast_cancel_mute_success">取消静音成功</string>
     <string name="toast_cancel_mute_fail">取消静音失败</string>
     <string name="toast_username_password_false">账号或密码错误</string>
+    <string name="toast_no_have_find_qq">没有找到QQ</string>
+    <string name="ed_error_account_null">账号不能为空</string>
+    <string name="ed_error_password_null">密码不能为空</string>
+    <string name="sign_in">登录</string>
+    <string name="can_not_sign_in">无法登录</string>
+    <string name="go_to_sign_up">立即注册</string>
 </resources>
