@@ -47,4 +47,8 @@
     <string name="sign_in">登录</string>
     <string name="can_not_sign_in">无法登录</string>
     <string name="go_to_sign_up">立即注册</string>
+    <string name="toast_close_flash_light_success">关闭手电筒成功</string>
+    <string name="toast_close_flash_light_fail">关闭手电筒失败</string>
+    <string name="toast_open_flash_light_success">开启手电筒成功</string>
+    <string name="toast_open_flash_light_fail">开启手电筒失败</string>
 </resources>

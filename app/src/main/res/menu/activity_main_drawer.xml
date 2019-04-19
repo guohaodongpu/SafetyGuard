@@ -6,19 +6,19 @@
         <item android:title="">
             <menu>
                 <item
-                    android:id="@+id/nav_wifi"
+                    android:id="@+id/nav_wifi_id"
                     android:icon="@drawable/ic_menu_wifi"
                     android:title="@string/wifi" />
                 <item
-                    android:id="@+id/nav_bluetooth"
+                    android:id="@+id/nav_bluetooth_id"
                     android:icon="@drawable/ic_menu_bluetooth"
                     android:title="@string/bluetooth" />
                 <item
-                    android:id="@+id/nav_electric_quantity"
+                    android:id="@+id/nav_electric_quantity_id"
                     android:icon="@drawable/ic_menu_electric_quantity"
                     android:title="@string/electric_quantity" />
                 <item
-                    android:id="@+id/nav_mute"
+                    android:id="@+id/nav_mute_id"
                     android:icon="@drawable/ic_menu_mute"
                     android:title="@string/mute" />
             </menu>

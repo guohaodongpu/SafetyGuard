@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -115,16 +116,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
 
         switch (item.getItemId()) {
-            case R.id.nav_wifi: {
+            case R.id.nav_wifi_id: {
                 break;
             }
-            case R.id.nav_bluetooth: {
+            case R.id.nav_bluetooth_id: {
                 break;
             }
-            case R.id.nav_electric_quantity: {
+            case R.id.nav_electric_quantity_id: {
                 break;
             }
-            case R.id.nav_mute: {
+            case R.id.nav_mute_id: {
                 break;
             }
             case R.id.nav_brightness: {
@@ -248,6 +249,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 }
             }
+            //静音
             if (intent.getAction().equals(AudioManager.RINGER_MODE_CHANGED_ACTION)) {
                 AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
                 final int ringerMode = am.getRingerMode();
@@ -266,6 +268,8 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             }
+            //闪光灯
+            updateFlashLightIcon();
         }
     };
 
@@ -306,16 +310,16 @@ public class MainActivity extends AppCompatActivity
         if (mFlashLightController.getFlashLightStatus()){
             if (mFlashLightController.lightsOff()){
                 updateFlashLightIcon();
-                showToast("关闭手电筒成功");
+                showToast(getString(R.string.toast_close_flash_light_success));
             } else {
-                showToast("关闭手电筒失败");
+                showToast(getString(R.string.toast_close_flash_light_fail));
             }
         } else {
             if (mFlashLightController.lightsOn()){
                 updateFlashLightIcon();
-                showToast("开启手电筒成功");
+                showToast(getString(R.string.toast_open_flash_light_success));
             } else {
-                showToast("开启手电筒失败");
+                showToast(getString(R.string.toast_open_flash_light_fail));
             }
 
         }
