@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-        //注销广播
         unregisterReceiver(receiver);
         super.onDestroy();
     }
@@ -88,9 +87,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        //右上角菜单点击事件
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -105,21 +102,31 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (item.getItemId()){
+            case R.id.nav_wifi:{
+                break;
+            }
+            case R.id.nav_bluetooth:{
+                break;
+            }
+            case R.id.nav_electric_quantity:{
+                break;
+            }
+            case R.id.nav_mute:{
+                break;
+            }
+            case R.id.nav_brightness:{
+                break;
+            }
+            case R.id.nav_sound_volume:{
+                break;
+            }
+            default:{
+                break;
+            }
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

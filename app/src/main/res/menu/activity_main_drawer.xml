@@ -3,38 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-        <item android:title="@string/system_setup">
+        <item android:title="">
             <menu>
                 <item
-                    android:id="@+id/nav_camera"
+                    android:id="@+id/nav_wifi"
                     android:icon="@drawable/ic_menu_wifi"
                     android:title="@string/wifi" />
                 <item
-                    android:id="@+id/nav_gallery"
+                    android:id="@+id/nav_bluetooth"
                     android:icon="@drawable/ic_menu_bluetooth"
                     android:title="@string/bluetooth" />
                 <item
-                    android:id="@+id/nav_slideshow"
+                    android:id="@+id/nav_electric_quantity"
                     android:icon="@drawable/ic_menu_electric_quantity"
                     android:title="@string/electric_quantity" />
                 <item
-                    android:id="@+id/nav_manage"
+                    android:id="@+id/nav_mute"
                     android:icon="@drawable/ic_menu_mute"
                     android:title="@string/mute" />
             </menu>
         </item>
 
-
-    <item android:title="Communicate">
+    <item android:title="@string/system_setup">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_brightness"
+                android:icon="@drawable/ic_menu_brightness"
+                android:title="调节亮度" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Send" />
+                android:id="@+id/nav_sound_volume"
+                android:icon="@drawable/ic_menu_sound_volume"
+                android:title="调节音量" />
         </menu>
     </item>
 
