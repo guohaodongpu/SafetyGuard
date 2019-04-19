@@ -304,19 +304,20 @@ public class MainActivity extends AppCompatActivity
 
     private void showFlashLightToast() {
         if (mFlashLightController.getFlashLightStatus()){
-            if (mFlashLightController.lightsOn()){
-                updateFlashLightIcon();
-                showToast("开启手电筒成功");
-            } else {
-                showToast("开启手电筒失败");
-            }
-        } else {
             if (mFlashLightController.lightsOff()){
                 updateFlashLightIcon();
                 showToast("关闭手电筒成功");
             } else {
                 showToast("关闭手电筒失败");
             }
+        } else {
+            if (mFlashLightController.lightsOn()){
+                updateFlashLightIcon();
+                showToast("开启手电筒成功");
+            } else {
+                showToast("开启手电筒失败");
+            }
+
         }
 
 
