@@ -31,9 +31,9 @@ public class FlashLightController {
 
     public boolean getFlashLightStatus() {
         if (isVersionM()) {
-            return manager == null;
+            return manager != null;
         } else
-            return mCamera == null;
+            return mCamera != null;
     }
 
     //打开手电筒

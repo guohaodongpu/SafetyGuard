@@ -173,6 +173,7 @@ public class MainActivity extends AppCompatActivity
         updateBluetoothIcon();
         updateMuteIcon();
         updateWifiIcon();
+        updateFlashLightIcon();
     }
 
     private void updateMuteIcon() {
