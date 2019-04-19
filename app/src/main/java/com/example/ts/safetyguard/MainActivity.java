@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -103,26 +104,26 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
-        switch (item.getItemId()){
-            case R.id.nav_wifi:{
+        switch (item.getItemId()) {
+            case R.id.nav_wifi: {
                 break;
             }
-            case R.id.nav_bluetooth:{
+            case R.id.nav_bluetooth: {
                 break;
             }
-            case R.id.nav_electric_quantity:{
+            case R.id.nav_electric_quantity: {
                 break;
             }
-            case R.id.nav_mute:{
+            case R.id.nav_mute: {
                 break;
             }
-            case R.id.nav_brightness:{
+            case R.id.nav_brightness: {
                 break;
             }
-            case R.id.nav_sound_volume:{
+            case R.id.nav_sound_volume: {
                 break;
             }
-            default:{
+            default: {
                 break;
             }
         }
@@ -153,6 +154,17 @@ public class MainActivity extends AppCompatActivity
 
     private void updateAllIcon() {
         updateBluetoothIcon();
+        updateMuteIcon();
+    }
+
+    private void updateMuteIcon() {
+        if (mMuteController.getMuteStatus()) {
+            mMuteImageButton.setImageDrawable(getResources().
+                    getDrawable(R.drawable.ic_menu_mute));
+        } else {
+            mMuteImageButton.setImageDrawable(getResources().
+                    getDrawable(R.drawable.ic_icon_no_mute));
+        }
     }
 
     private void updateBluetoothIcon() {
@@ -165,21 +177,42 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            //蓝牙
             int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1);
             switch (bluetoothState) {
-                case BluetoothAdapter.STATE_OFF:
-                    mBluetoothImageButton.setImageDrawable(getResources()
-                            .getDrawable(R.drawable.ic_menu_bluetooth));
+                case BluetoothAdapter.STATE_OFF: {
+                    updateBluetoothIcon();
                     break;
-                case BluetoothAdapter.STATE_ON:
-                    mBluetoothImageButton.setImageDrawable(getResources()
-                            .getDrawable(R.drawable.ic_icon_bluetooth_isopen));
+                }
+                case BluetoothAdapter.STATE_ON: {
+                    updateBluetoothIcon();
                     break;
-                default:
+                }
+                default: {
                     break;
+                }
+            }
+            if (intent.getAction().equals(AudioManager.RINGER_MODE_CHANGED_ACTION)) {
+                AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                final int ringerMode = am.getRingerMode();
+                switch (ringerMode) {
+                    case AudioManager.RINGER_MODE_NORMAL: {
+                        updateMuteIcon();
+                        break;
+                    }
+                    case AudioManager.RINGER_MODE_VIBRATE: {
+                        updateMuteIcon();
+                        break;
+                    }
+                    case AudioManager.RINGER_MODE_SILENT: {
+                        updateMuteIcon();
+                        break;
+                    }
+                }
             }
         }
     };
@@ -208,6 +241,7 @@ public class MainActivity extends AppCompatActivity
     private void showBluetoothToast() {
         if (!mBluetoothController.getBluetoothStatus()) {
             if (mBluetoothController.openBluetooth()) {
+                updateBluetoothIcon();
                 showToast(getString(R.string.toast_open_bluetooth_success));
             } else {
                 showToast(getString(R.string.toast_open_bluetooth_fail));
@@ -215,6 +249,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             if (mBluetoothController.closeBluetooth()) {
                 showToast(getString(R.string.toast_close_bluetooth_success));
+                updateBluetoothIcon();
             } else {
                 showToast(getString(R.string.toast_close_bluetooth_fail));
             }
@@ -224,12 +259,14 @@ public class MainActivity extends AppCompatActivity
     private void showMuteToast() {
         if (mMuteController.getMuteStatus()) {
             if (mMuteController.cancelMute()) {
+                updateMuteIcon();
                 showToast(getString(R.string.toast_cancel_mute_success));
             } else {
                 showToast(getString(R.string.toast_cancel_mute_fail));
             }
         } else {
             if (mMuteController.setMute()) {
+                updateAllIcon();
                 showToast(getString(R.string.toast_set_mute_success));
             } else {
                 showToast(getString(R.string.toast_set_mute_fail));
@@ -247,7 +284,7 @@ public class MainActivity extends AppCompatActivity
         mToast.show();
     }
 
-    private void getDoNotDisturb(){
+    private void getDoNotDisturb() {
         NotificationManager notificationManager =
                 (NotificationManager) MainActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -255,10 +292,15 @@ public class MainActivity extends AppCompatActivity
                 && !notificationManager.isNotificationPolicyAccessGranted()) {
 
             Intent intent = new Intent(android.provider.Settings
-                            .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                    .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
 
             startActivity(intent);
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        updateAllIcon();
+    }
 }

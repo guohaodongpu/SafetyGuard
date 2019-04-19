@@ -1,7 +1,6 @@
 package com.example.ts.safetyguard.controller;
 
 
-import android.app.Service;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.util.Log;
