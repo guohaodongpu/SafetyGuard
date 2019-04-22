@@ -5,15 +5,18 @@ import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +27,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ts.safetyguard.LoginActivity;
@@ -64,6 +69,10 @@ public class MainActivity extends AppCompatActivity
     private boolean isProgressGoing;
     private int mScoreSeekBarProgress;
     private int mScoreSeekBarMax;
+    private SeekBar seekBar_system_brightness;
+    private TextView textView_system_brightness;
+    private ContentResolver mContentResolver;
+    private int mSystemBrightness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,9 +161,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_brightness: {
+                showDialog();
                 break;
             }
             case R.id.nav_sound_volume: {
+                Intent goIntent = new Intent(MainActivity.this,NotepadActivity.class);
+                startActivity(goIntent);
                 break;
             }
             case R.id.nav_sign_out: {
@@ -576,6 +588,67 @@ public class MainActivity extends AppCompatActivity
 
             startActivity(intent);
         }
+    }
+
+    //动态申请修改系统设置权限
+    private void verifyStoragePermissions(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.System.canWrite(this)) {
+                Toast.makeText(this,
+                        "检测到未开启更新系统设置的权限,无法修改系统亮度,请开启权限",
+                        Toast.LENGTH_LONG).show();
+                //如果没有修改系统的权限则请求权限
+                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                //找到本应用的包的路径
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+                //在新的TASK中启动设置
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivityForResult(intent,0);
+            } else {
+                //有权限之后动作
+                showDialog();
+            }
+        }
+    }
+
+    private void showDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_brightness,null);
+        seekBar_system_brightness = dialogView.findViewById(R.id.seekBar_system_brightness);
+        textView_system_brightness = dialogView.findViewById(R.id.textView_system_brightness);
+        //获取当前的系统亮度  系统亮度为0-255
+        mContentResolver = this.getContentResolver();
+        try {
+            mSystemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        textView_system_brightness.setText("当前的亮度为:" + mSystemBrightness);
+        //设置seekBar游标初始位置
+        seekBar_system_brightness.setProgress(mSystemBrightness);
+
+        seekBar_system_brightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                textView_system_brightness.setText("当前的亮度为:" + progress);
+                Uri uri = android.provider.Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS);
+                android.provider.Settings.System.putInt(mContentResolver,Settings.System.SCREEN_BRIGHTNESS,progress);
+                mContentResolver.notifyChange(uri,null);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        builder.setView(dialogView);
+        builder.show();
     }
 
 
