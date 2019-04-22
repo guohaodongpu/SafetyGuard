@@ -37,4 +37,13 @@
         </menu>
     </item>
 
+    <item android:title="用户设置">
+        <menu>
+            <item
+                android:id="@+id/nav_sign_out"
+                android:icon="@drawable/ic_menu_sign_out"
+                android:title="退出登录" />
+        </menu>
+    </item>
+
 </menu>

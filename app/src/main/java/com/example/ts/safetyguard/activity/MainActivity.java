@@ -1,9 +1,12 @@
-package com.example.ts.safetyguard;
+package com.example.ts.safetyguard.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
@@ -23,6 +26,8 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.ts.safetyguard.LoginActivity;
+import com.example.ts.safetyguard.R;
 import com.example.ts.safetyguard.controller.AirModeController;
 import com.example.ts.safetyguard.controller.BluetoothController;
 import com.example.ts.safetyguard.controller.FlashLightController;
@@ -72,18 +77,8 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        IntentFilter bluetoothFilter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-        registerReceiver(receiver, bluetoothFilter);
-
-        IntentFilter wifiFilter = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        registerReceiver(receiver, wifiFilter);
-
-        IntentFilter airModeFilter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
-        registerReceiver(receiver, airModeFilter);
-
+        initIntentFilter();
         getDoNotDisturb();
-
         initController();
         initScoreSeekBarData();
         initView();
@@ -123,8 +118,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent();
-            intent.setClass(MainActivity.this, CommentsActivity.class);
+            Intent intent = new Intent(MainActivity.this, CommentsActivity.class);
             startActivity(intent);
         }
 
@@ -163,11 +157,26 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_sound_volume: {
                 break;
             }
+            case R.id.nav_sign_out: {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("温馨提示");
+                builder.setMessage("您已退出，请重新登录");
+                builder.setCancelable(false); //设置弹窗不可取消
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        Intent reIntent = new Intent(MainActivity.this, LoginActivity.class);
+                        MainActivity.this.startActivity(reIntent);
+                    }
+                });
+                builder.show();
+                break;
+            }
             default: {
                 break;
             }
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -207,6 +216,15 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+    }
+
+    private void initIntentFilter() {
+        IntentFilter bluetoothFilter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        registerReceiver(receiver, bluetoothFilter);
+        IntentFilter wifiFilter = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        registerReceiver(receiver, wifiFilter);
+        IntentFilter airModeFilter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        registerReceiver(receiver, airModeFilter);
     }
 
     private void initScoreSeekBarData() {
@@ -338,7 +356,7 @@ public class MainActivity extends AppCompatActivity
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, Intent intent) {
             //Wifi
             int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
             switch (wifiState) {
@@ -394,7 +412,6 @@ public class MainActivity extends AppCompatActivity
             if (intent.getAction().equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {//飞行模式状态改变
                 updateAirModeTitle();
             }
-
 
         }
     };

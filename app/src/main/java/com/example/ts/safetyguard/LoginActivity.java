@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ts.safetyguard.activity.MainActivity;
 import com.example.ts.safetyguard.util.MD5;
 
 
@@ -85,8 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             mPasswordView.setError(getString(R.string.ed_error_password_null));
         } else {
             if (signIn(username, password)) {
-                Intent intent = new Intent();
-                intent.setClass(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             } else {

@@ -1,4 +1,4 @@
-package com.example.ts.safetyguard;
+package com.example.ts.safetyguard.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.ts.safetyguard.R;
 import com.example.ts.safetyguard.adapter.BluetoothListAdapter;
 
 import java.util.ArrayList;
