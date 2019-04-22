@@ -103,11 +103,12 @@ public class LoginActivity extends AppCompatActivity {
                 "account = ? and password = ?", new String[]{username, encryptedPassword},
                 null);
         if (cursor != null && cursor.getCount() != 0) {
+            cursor.close();
             return true;
         } else {
+            cursor.close();
             return false;
         }
     }
-
 }
 

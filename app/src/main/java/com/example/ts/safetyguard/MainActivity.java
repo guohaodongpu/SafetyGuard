@@ -6,13 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.hardware.Camera;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.Settings;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,10 +30,13 @@ import com.example.ts.safetyguard.controller.MuteController;
 import com.example.ts.safetyguard.controller.WifiController;
 import com.zjun.progressbar.CircleDotProgressBar;
 
-import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener ,
+        View.OnLongClickListener{
 
     private NavigationView mNavigationView;
     private CircleDotProgressBar mCircleDotProgressBar;
@@ -53,6 +54,11 @@ public class MainActivity extends AppCompatActivity
     private MenuItem mAirModeMenuItem;
     private MenuItem mBluetoothMenuItem;
     private MenuItem mWifiMenuItem;
+    private Timer mScoreSeekBarTimer;
+    private TimerTask mTimerTask;
+    private boolean isProgressGoing;
+    private int mScoreSeekBarProgress;
+    private int mScoreSeekBarMax;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +85,7 @@ public class MainActivity extends AppCompatActivity
         getDoNotDisturb();
 
         initController();
+        initScoreSeekBarData();
         initView();
         initEvent();
         updateAllIcon();
@@ -116,7 +123,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, EmailActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -132,12 +141,20 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_bluetooth_id: {
+                if (mBluetoothController.isReadyBluetooth() ) {
+                    Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+                    startActivity(intent);
+                } else {
+                    showToast(getString(R.string.toast_not_supported_bluetooth));
+                }
                 break;
             }
             case R.id.nav_electric_quantity_id: {
                 break;
             }
             case R.id.nav_air_mode_id: {
+                Intent intent = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
+                startActivity(intent);
                 break;
             }
             case R.id.nav_brightness: {
@@ -176,6 +193,71 @@ public class MainActivity extends AppCompatActivity
         mMuteImageButton.setOnClickListener(this);
         mFLashLightImageButton.setOnClickListener(this);
         mWifiImageButton.setOnClickListener(this);
+        mCircleDotProgressBar.setOnButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isProgressGoing) {
+                    if (mScoreSeekBarProgress == mScoreSeekBarMax) {
+                        mScoreSeekBarProgress = 0;
+                        mCircleDotProgressBar.setProgress(mScoreSeekBarProgress);
+                    }
+                    startProgress();
+                } else {
+                    stopProgress();
+                }
+            }
+        });
+    }
+
+    private void initScoreSeekBarData() {
+        mScoreSeekBarMax = 100;
+        readyProgress();
+    }
+
+    private void readyProgress() {
+        if (mScoreSeekBarTimer == null) {
+            mScoreSeekBarTimer = new Timer();
+        }
+        if (mTimerTask == null) {
+            mTimerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    if (!isProgressGoing) {
+                        return;
+                    }
+                    if (++mScoreSeekBarProgress >= mScoreSeekBarMax) {
+                        mScoreSeekBarProgress = mScoreSeekBarMax;
+                        mCircleDotProgressBar.setProgress(mScoreSeekBarProgress);
+                        stopProgress();
+                        return;
+                    }
+                    mCircleDotProgressBar.setProgress(mScoreSeekBarProgress);
+                }
+            };
+        }
+    }
+
+    private void startProgress() {
+        isProgressGoing = true;
+        stopTimerTask();
+        readyProgress();
+        mScoreSeekBarTimer.schedule(mTimerTask, 1000, 100);
+    }
+
+    private void stopTimerTask() {
+        if (mTimerTask != null) {
+            mTimerTask.cancel();
+        }
+        if (mScoreSeekBarTimer != null) {
+            mScoreSeekBarTimer.cancel();
+        }
+        mTimerTask = null;
+        mScoreSeekBarTimer = null;
+    }
+
+    private void stopProgress() {
+        isProgressGoing = false;
+        stopTimerTask();
     }
 
     private void initController() {
@@ -193,23 +275,23 @@ public class MainActivity extends AppCompatActivity
         updateFlashLightIcon();
     }
 
-    private void updateAllTitle(){
+    private void updateAllTitle() {
         updateAirModeTitle();
         updateBluetoothTitle();
     }
 
-    private void updateAirModeTitle(){
-        if(mAirModeController.getAirModeStatus()){
+    private void updateAirModeTitle() {
+        if (mAirModeController.getAirModeStatus()) {
             mAirModeMenuItem.setTitle(getString(R.string.title_air_mode_on));
         } else {
             mAirModeMenuItem.setTitle(getString(R.string.title_air_mode_off));
         }
     }
 
-    private void updateBluetoothTitle(){
-        if (mBluetoothController.getBluetoothStatus()){
+    private void updateBluetoothTitle() {
+        if (mBluetoothController.getBluetoothStatus()) {
             mBluetoothMenuItem.setTitle(getString(R.string.title_bluetooth_on));
-        }else {
+        } else {
             mBluetoothMenuItem.setTitle(getString(R.string.title_bluetooth_off));
         }
 
@@ -350,6 +432,38 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()) {
+
+            //Wifi
+            case R.id.on_off_wifi_bt_id: {
+                showWifiToast();
+                break;
+            }
+
+            //蓝牙
+            case R.id.on_off_bluetooth_bt_id: {
+                if (mBluetoothController.isReadyBluetooth() ) {
+                    Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+                    startActivity(intent);
+                } else {
+                    showToast(getString(R.string.toast_not_supported_bluetooth));
+                }
+                break;
+            }
+
+            //静音
+            case R.id.on_off_mute_bt_id: {
+                Intent intent = new Intent(Settings.ACTION_SOUND_SETTINGS);
+                startActivity(intent);
+                break;
+            }
+
+        }
+        return true;
+    }
+
     private void showFlashLightToast() {
         if (mFlashLightController.getFlashLightStatus()) {
             if (mFlashLightController.lightsOff()) {
@@ -461,4 +575,5 @@ public class MainActivity extends AppCompatActivity
         updateAllIcon();
         updateAllTitle();
     }
+
 }

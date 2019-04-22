@@ -56,4 +56,11 @@
     <string name="title_air_mode_off">飞行模式: OFF</string>
     <string name="title_bluetooth_on">蓝牙: ON</string>
     <string name="title_bluetooth_off">蓝牙: OFF</string>
+    <string name="title_activity_bluetooth">BluetoothActivity</string>
+    <string name="toast_not_supported_bluetooth">不支持蓝牙</string>
+    <string name="comments_title">意见和反馈</string>
+    <string name="hint_please_input_your_comments">请填写您的意见和反馈...</string>
+    <string name="comments_tv_name">姓名:</string>
+    <string name="comments_tv_telephone">手机:</string>
+    <string name="comments_tv_qq_number">QQ号:</string>
 </resources>

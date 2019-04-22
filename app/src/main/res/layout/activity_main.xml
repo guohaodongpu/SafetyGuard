@@ -5,24 +5,23 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/DeepSkyBlue"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
-    android:background="@color/DeepSkyBlue">
+    tools:openDrawer="start">
 
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view_id"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/DeepSkyBlue"
         android:fitsSystemWindows="true"
-        app:menu="@menu/activity_main_drawer"
-        android:background="@color/DeepSkyBlue"/>
-        <!--app:headerLayout="@layout/nav_header_main"-->
-
+        app:menu="@menu/activity_main_drawer" />
+    <!--app:headerLayout="@layout/nav_header_main"-->
 
 </android.support.v4.widget.DrawerLayout>

@@ -2,19 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ts.safetyguard">
 
-    <!-- 蓝牙模块需要申请的权限-->
+    <!-- 蓝牙模块需要申请的权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <!-- 音量控制需要申请的权限-->
+    <!-- 音量控制需要申请的权限 -->
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-    <!-- 照相机需要申请的权限-->
+    <!-- 照相机需要申请的权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 闪光灯需要申请的权限-->
+    <!-- 闪光灯需要申请的权限 -->
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <!--Wifi需要申请的权限-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-
+    <!-- Wifi需要申请的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -36,8 +35,10 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".BlueToothActivity" />
+        <activity android:name=".EmailActivity"
+            android:label="@string/comments_title">
         </activity>
     </application>
 
