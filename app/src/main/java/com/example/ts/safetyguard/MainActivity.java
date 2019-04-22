@@ -35,8 +35,8 @@ import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener ,
-        View.OnLongClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
+        View.OnLongClickListener {
 
     private NavigationView mNavigationView;
     private CircleDotProgressBar mCircleDotProgressBar;
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_bluetooth_id: {
-                if (mBluetoothController.isReadyBluetooth() ) {
+                if (mBluetoothController.isReadyBluetooth()) {
                     Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
                     startActivity(intent);
                 } else {
@@ -444,7 +444,7 @@ public class MainActivity extends AppCompatActivity
 
             //蓝牙
             case R.id.on_off_bluetooth_bt_id: {
-                if (mBluetoothController.isReadyBluetooth() ) {
+                if (mBluetoothController.isReadyBluetooth()) {
                     Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
                     startActivity(intent);
                 } else {
