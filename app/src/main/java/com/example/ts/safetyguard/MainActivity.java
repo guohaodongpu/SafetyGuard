@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,6 +32,8 @@ import com.example.ts.safetyguard.controller.MuteController;
 import com.example.ts.safetyguard.controller.WifiController;
 import com.zjun.progressbar.CircleDotProgressBar;
 
+import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -45,6 +49,11 @@ public class MainActivity extends AppCompatActivity
     private AirModeController mAirModeController;
     private FlashLightController mFlashLightController;
     private Toast mToast;
+    private Menu mActivityMainDrawerMenu;
+    private MenuItem mAirModeMenuItem;
+    private MenuItem mBluetoothMenuItem;
+    private MenuItem mMuteMenuItem;
+    private MenuItem mWifiMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +72,10 @@ public class MainActivity extends AppCompatActivity
         registerReceiver(receiver, bluetoothFilter);
 
         IntentFilter wifiFilter = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        registerReceiver(receiver,wifiFilter);
+        registerReceiver(receiver, wifiFilter);
+
+        IntentFilter airModeFilter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        registerReceiver(receiver, airModeFilter);
 
         getDoNotDisturb();
 
@@ -147,11 +159,16 @@ public class MainActivity extends AppCompatActivity
 
     private void initView() {
         mNavigationView = findViewById(R.id.nav_view_id);
+        mActivityMainDrawerMenu = mNavigationView.getMenu();
         mCircleDotProgressBar = findViewById(R.id.score_seek_bar_id);
         mBluetoothImageButton = findViewById(R.id.on_off_bluetooth_bt_id);
         mMuteImageButton = findViewById(R.id.on_off_mute_bt_id);
         mFLashLightImageButton = findViewById(R.id.on_off_flashlight_bt_id);
         mWifiImageButton = findViewById(R.id.on_off_wifi_bt_id);
+        mAirModeMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_air_mode_id);
+        mWifiMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_wifi_id);
+        mBluetoothMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_bluetooth_id);
+        mMuteMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_mute_id);
     }
 
     private void initEvent() {
@@ -175,6 +192,7 @@ public class MainActivity extends AppCompatActivity
         updateMuteIcon();
         updateWifiIcon();
         updateFlashLightIcon();
+        updateAirModeTitle();
     }
 
     private void updateMuteIcon() {
@@ -187,8 +205,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void updateAirModeTitle(){
+        if(mAirModeController.getAirModeStatus()){
+            mAirModeMenuItem.setTitle("飞行模式: ON");
+        } else {
+            mAirModeMenuItem.setTitle("飞行模式: OFF");
+        }
+    }
+
     private void updateFlashLightIcon() {
-        if(mFlashLightController.getFlashLightStatus()){
+        if (mFlashLightController.getFlashLightStatus()) {
             mFLashLightImageButton.setImageDrawable(getResources().
                     getDrawable(R.drawable.ic_icon_flashlight_open));
         } else {
@@ -198,9 +224,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void updateWifiIcon() {
-        if(mWifiController.getWifiStatus()) {
+        if (mWifiController.getWifiStatus()) {
             mWifiImageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_icon_wifi_isopen));
-        }else {
+        } else {
             mWifiImageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_wifi));
         }
     }
@@ -220,7 +246,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             //Wifi
-            int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE,-1);
+            int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
             switch (wifiState) {
                 case WifiManager.WIFI_STATE_DISABLED:
                     mWifiImageButton.setImageDrawable(getResources()
@@ -268,8 +294,12 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
             }
-            //闪光灯
-            updateFlashLightIcon();
+            //飞行模式 0关闭；1开启
+            if (intent.getAction().equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {//飞行模式状态改变
+                updateAirModeTitle();
+            }
+
+
         }
     };
 
@@ -307,15 +337,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showFlashLightToast() {
-        if (mFlashLightController.getFlashLightStatus()){
-            if (mFlashLightController.lightsOff()){
+        if (mFlashLightController.getFlashLightStatus()) {
+            if (mFlashLightController.lightsOff()) {
                 updateFlashLightIcon();
                 showToast(getString(R.string.toast_close_flash_light_success));
             } else {
                 showToast(getString(R.string.toast_close_flash_light_fail));
             }
         } else {
-            if (mFlashLightController.lightsOn()){
+            if (mFlashLightController.lightsOn()) {
                 updateFlashLightIcon();
                 showToast(getString(R.string.toast_open_flash_light_success));
             } else {
@@ -328,14 +358,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showWifiToast() {
-        if(!mWifiController.getWifiStatus()) {
-            if(mWifiController.openWifi()) {
+        if (!mWifiController.getWifiStatus()) {
+            if (mWifiController.openWifi()) {
                 showToast(getString(R.string.toast_open_wifi_success));
             } else {
                 showToast(getString(R.string.toast_open_wifi_fail));
             }
         } else {
-            if(mWifiController.closeWifi()) {
+            if (mWifiController.closeWifi()) {
                 showToast(getString(R.string.toast_close_wifi_success));
             } else {
                 showToast(getString(R.string.toast_close_wifi_fail));
