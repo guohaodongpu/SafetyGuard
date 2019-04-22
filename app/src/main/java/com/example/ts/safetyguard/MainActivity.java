@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent();
-            intent.setClass(MainActivity.this, EmailActivity.class);
+            intent.setClass(MainActivity.this, CommentsActivity.class);
             startActivity(intent);
         }
 
