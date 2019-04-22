@@ -51,4 +51,9 @@
     <string name="toast_close_flash_light_fail">关闭手电筒失败</string>
     <string name="toast_open_flash_light_success">开启手电筒成功</string>
     <string name="toast_open_flash_light_fail">开启手电筒失败</string>
+    <string name="air_mode">飞行模式: OFF</string>
+    <string name="title_air_mode_on">飞行模式: ON</string>
+    <string name="title_air_mode_off">飞行模式: OFF</string>
+    <string name="title_bluetooth_on">蓝牙: ON</string>
+    <string name="title_bluetooth_off">蓝牙: OFF</string>
 </resources>

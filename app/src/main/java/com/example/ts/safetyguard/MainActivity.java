@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity
     private Menu mActivityMainDrawerMenu;
     private MenuItem mAirModeMenuItem;
     private MenuItem mBluetoothMenuItem;
-    private MenuItem mMuteMenuItem;
     private MenuItem mWifiMenuItem;
 
     @Override
@@ -83,6 +82,7 @@ public class MainActivity extends AppCompatActivity
         initView();
         initEvent();
         updateAllIcon();
+        updateAllTitle();
     }
 
     @Override
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_electric_quantity_id: {
                 break;
             }
-            case R.id.nav_mute_id: {
+            case R.id.nav_air_mode_id: {
                 break;
             }
             case R.id.nav_brightness: {
@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity
         mAirModeMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_air_mode_id);
         mWifiMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_wifi_id);
         mBluetoothMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_bluetooth_id);
-        mMuteMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_mute_id);
     }
 
     private void initEvent() {
@@ -192,7 +191,28 @@ public class MainActivity extends AppCompatActivity
         updateMuteIcon();
         updateWifiIcon();
         updateFlashLightIcon();
+    }
+
+    private void updateAllTitle(){
         updateAirModeTitle();
+        updateBluetoothTitle();
+    }
+
+    private void updateAirModeTitle(){
+        if(mAirModeController.getAirModeStatus()){
+            mAirModeMenuItem.setTitle(getString(R.string.title_air_mode_on));
+        } else {
+            mAirModeMenuItem.setTitle(getString(R.string.title_air_mode_off));
+        }
+    }
+
+    private void updateBluetoothTitle(){
+        if (mBluetoothController.getBluetoothStatus()){
+            mBluetoothMenuItem.setTitle(getString(R.string.title_bluetooth_on));
+        }else {
+            mBluetoothMenuItem.setTitle(getString(R.string.title_bluetooth_off));
+        }
+
     }
 
     private void updateMuteIcon() {
@@ -202,14 +222,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             mMuteImageButton.setImageDrawable(getResources().
                     getDrawable(R.drawable.ic_icon_no_mute));
-        }
-    }
-
-    private void updateAirModeTitle(){
-        if(mAirModeController.getAirModeStatus()){
-            mAirModeMenuItem.setTitle("飞行模式: ON");
-        } else {
-            mAirModeMenuItem.setTitle("飞行模式: OFF");
         }
     }
 
@@ -265,10 +277,12 @@ public class MainActivity extends AppCompatActivity
             switch (bluetoothState) {
                 case BluetoothAdapter.STATE_OFF: {
                     updateBluetoothIcon();
+                    updateBluetoothTitle();
                     break;
                 }
                 case BluetoothAdapter.STATE_ON: {
                     updateBluetoothIcon();
+                    updateBluetoothTitle();
                     break;
                 }
                 default: {
@@ -433,9 +447,18 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateAllIcon();
+        updateAllTitle();
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
         updateAllIcon();
+        updateAllTitle();
     }
 }

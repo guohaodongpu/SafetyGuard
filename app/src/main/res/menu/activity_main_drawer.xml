@@ -18,13 +18,9 @@
                     android:icon="@drawable/ic_menu_electric_quantity"
                     android:title="@string/electric_quantity" />
                 <item
-                    android:id="@+id/nav_mute_id"
-                    android:icon="@drawable/ic_menu_mute"
-                    android:title="@string/mute" />
-                <item
                     android:id="@+id/nav_air_mode_id"
                     android:icon="@drawable/ic_menu_air_mode"
-                    android:title="飞行模式: OFF" />
+                    android:title="@string/air_mode" />
             </menu>
         </item>
 
