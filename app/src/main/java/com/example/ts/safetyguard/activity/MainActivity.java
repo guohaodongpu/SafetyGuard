@@ -30,6 +30,7 @@ import com.example.ts.safetyguard.LoginActivity;
 import com.example.ts.safetyguard.R;
 import com.example.ts.safetyguard.controller.AirModeController;
 import com.example.ts.safetyguard.controller.BluetoothController;
+import com.example.ts.safetyguard.controller.ElectricQuantityController;
 import com.example.ts.safetyguard.controller.FlashLightController;
 import com.example.ts.safetyguard.controller.MuteController;
 import com.example.ts.safetyguard.controller.WifiController;
@@ -54,17 +55,19 @@ public class MainActivity extends AppCompatActivity
     private BluetoothController mBluetoothController;
     private AirModeController mAirModeController;
     private FlashLightController mFlashLightController;
+    private ElectricQuantityController mElectricQuantityController;
     private Toast mToast;
     private Menu mActivityMainDrawerMenu;
     private MenuItem mAirModeMenuItem;
     private MenuItem mBluetoothMenuItem;
     private MenuItem mWifiMenuItem;
+    private MenuItem mElectricQuantityMenuItem;
     private Timer mScoreSeekBarTimer;
     private TimerTask mTimerTask;
     private boolean isProgressGoing;
     private int mScoreSeekBarProgress;
     private int mScoreSeekBarMax;
-
+    private String mElectricQuantity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,6 +200,7 @@ public class MainActivity extends AppCompatActivity
         mAirModeMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_air_mode_id);
         mWifiMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_wifi_id);
         mBluetoothMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_bluetooth_id);
+        mElectricQuantityMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_electric_quantity_id);
     }
 
     private void initEvent() {
@@ -228,6 +232,8 @@ public class MainActivity extends AppCompatActivity
         registerReceiver(receiver, wifiFilter);
         IntentFilter airModeFilter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
         registerReceiver(receiver, airModeFilter);
+        IntentFilter electricQuantityFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(receiver,electricQuantityFilter);
     }
 
     private void initScoreSeekBarData() {
@@ -287,6 +293,7 @@ public class MainActivity extends AppCompatActivity
         mAirModeController = new AirModeController(MainActivity.this);
         mFlashLightController = new FlashLightController(MainActivity.this);
         mWifiController = new WifiController(MainActivity.this);
+        mElectricQuantityController = new ElectricQuantityController(MainActivity.this);
     }
 
     private void updateAllIcon() {
@@ -316,6 +323,9 @@ public class MainActivity extends AppCompatActivity
             mBluetoothMenuItem.setTitle(getString(R.string.title_bluetooth_off));
         }
 
+    }
+    private void updataElectricQuantityTitle() {
+        mElectricQuantityMenuItem.setTitle(mElectricQuantity);
     }
 
     private void updateMuteIcon() {
@@ -415,7 +425,11 @@ public class MainActivity extends AppCompatActivity
             if (intent.getAction().equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {//飞行模式状态改变
                 updateAirModeTitle();
             }
-
+            //电量
+            if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) { //电池电量改变
+                mElectricQuantity = mElectricQuantityController.getElectricQuantity(intent);
+                updataElectricQuantityTitle();
+            }
         }
     };
 
