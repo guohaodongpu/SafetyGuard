@@ -147,6 +147,8 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_electric_quantity_id: {
+                Intent intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
+                startActivity(intent);
                 break;
             }
             case R.id.nav_air_mode_id: {
