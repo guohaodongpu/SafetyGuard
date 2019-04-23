@@ -8,6 +8,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -74,9 +75,9 @@ public class SettingActivity extends AppCompatActivity {
     private int nowVolume(int type) {
         //查看当前音量
         mAudioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
-            int systemVolume = mAudioManager.getStreamVolume(type);
+        int systemVolume = mAudioManager.getStreamVolume(type);
 //            Log.d("tips","音量为:"+systemVolume);
-            return systemVolume;
+        return systemVolume;
     }
 
     //加载系统音量
@@ -125,4 +126,27 @@ public class SettingActivity extends AppCompatActivity {
         seekBar_ring = findViewById(R.id.seekBar_ring);
     }
 
+    //音量键 控制媒体音量 max=15 min=0
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if (mAudioManager.getStreamVolume(TYPE_2) > 0) {
+                mAudioManager.adjustStreamVolume(TYPE_2,AudioManager.ADJUST_LOWER,AudioManager.FLAG_PLAY_SOUND);
+                seekBar_music.setProgress(mAudioManager.getStreamVolume(TYPE_2));
+                textView_music_volume.setText("" + nowVolume(TYPE_2));
+                return true;
+            }
+
+        }else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            if (mAudioManager.getStreamVolume(TYPE_2) < 15) {
+                mAudioManager.adjustStreamVolume(TYPE_2,AudioManager.ADJUST_RAISE,AudioManager.FLAG_PLAY_SOUND);
+                seekBar_music.setProgress(mAudioManager.getStreamVolume(TYPE_2));
+                textView_music_volume.setText("" + nowVolume(TYPE_2));
+                return true;
+            }
+        }else {
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

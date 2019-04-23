@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ts.safetyguard">
 
     <!-- 蓝牙模块需要申请的权限 -->
@@ -15,7 +16,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!--亮度控制需要申请的权限-->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -43,6 +45,8 @@
             android:name=".activity.CommentsActivity"
             android:label="@string/comments_title" />
         <activity android:name=".activity.WifiActivity"></activity>
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.NotepadActivity"/>
     </application>
 
 </manifest>

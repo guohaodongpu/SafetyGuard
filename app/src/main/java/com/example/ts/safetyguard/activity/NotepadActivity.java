@@ -2,6 +2,7 @@ package com.example.ts.safetyguard.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -27,6 +28,7 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
     private RecyclerView recyclerView_notepad;
     private Button button_add_notepad;
     private Button button_del_notepad;
+    private Button button_exit_notepad;
     private EditText edit_dialog_notepad;
     private List<String> mList;
 
@@ -34,7 +36,7 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
     private SharedPreferences.Editor mEditor;
 
     //数据标记
-    public static int dataName ;
+    public static int dataName;
     private String mData;
 
 
@@ -46,6 +48,7 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
         findView();
         button_add_notepad.setOnClickListener(this);
         button_del_notepad.setOnClickListener(this);
+        button_exit_notepad.setOnClickListener(this);
 
         mSharedPreferences = getSharedPreferences("notepad", Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
@@ -60,6 +63,7 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
         recyclerView_notepad = findViewById(R.id.recyclerView_notepad);
         button_add_notepad = findViewById(R.id.button_add_notepad);
         button_del_notepad = findViewById(R.id.button_del_notepad);
+        button_exit_notepad = findViewById(R.id.button_exit_notepad);
     }
 
     @Override
@@ -71,6 +75,12 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
             }
             case R.id.button_del_notepad: {
                 mEditor.clear().commit();
+                dataName = 0;
+                mList = new ArrayList<>();
+                setAdapter();
+                break;
+            }
+            case R.id.button_exit_notepad: {
                 NotepadActivity.this.finish();
                 break;
             }
@@ -127,6 +137,7 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
 
         @Override
         protected Boolean doInBackground(Void... voids) {
+            dataName = 0;
             while (!(mSharedPreferences.getString("" + dataName,"") == null ||
                     mSharedPreferences.getString("" + dataName,"").equals(""))) {
                 mData = mSharedPreferences.getString("" + dataName,"");
@@ -146,12 +157,13 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
-            if (aBoolean) {
-
-            } else {
-
-            }
         }
 
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

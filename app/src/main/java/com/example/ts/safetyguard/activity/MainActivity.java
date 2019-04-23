@@ -161,11 +161,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_brightness: {
+                verifyStoragePermissions();
                 showDialog();
                 break;
             }
             case R.id.nav_sound_volume: {
-                Intent goIntent = new Intent(MainActivity.this,NotepadActivity.class);
+                Intent goIntent = new Intent(MainActivity.this,SettingActivity.class);
                 startActivity(goIntent);
                 break;
             }
