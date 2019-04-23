@@ -157,6 +157,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_sound_volume: {
                 break;
             }
+            case R.id.nav_memorandum_book: {
+                break;
+            }
             case R.id.nav_sign_out: {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("温馨提示");
