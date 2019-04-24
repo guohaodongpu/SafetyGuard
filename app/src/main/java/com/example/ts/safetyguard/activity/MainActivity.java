@@ -29,6 +29,8 @@ import com.example.ts.safetyguard.LoginActivity;
 import com.example.ts.safetyguard.R;
 import com.example.ts.safetyguard.controller.AirModeController;
 import com.example.ts.safetyguard.controller.BluetoothController;
+import com.example.ts.safetyguard.controller.ClearController;
+import com.example.ts.safetyguard.controller.ElectricQuantityController;
 import com.example.ts.safetyguard.controller.FlashLightController;
 import com.example.ts.safetyguard.controller.MuteController;
 import com.example.ts.safetyguard.controller.WifiController;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     private BluetoothController mBluetoothController;
     private AirModeController mAirModeController;
     private FlashLightController mFlashLightController;
+    private ClearController mClearController;
+    private ElectricQuantityController mElectricQuantityController;
     private Toast mToast;
     private Menu mActivityMainDrawerMenu;
     private MenuItem mAirModeMenuItem;
@@ -296,6 +300,8 @@ public class MainActivity extends AppCompatActivity
         mAirModeController = new AirModeController(MainActivity.this);
         mFlashLightController = new FlashLightController(MainActivity.this);
         mWifiController = new WifiController(MainActivity.this);
+        mClearController = new ClearController(MainActivity.this);
+        mElectricQuantityController = new ElectricQuantityController(MainActivity.this);
     }
 
     private void updateAllIcon() {
