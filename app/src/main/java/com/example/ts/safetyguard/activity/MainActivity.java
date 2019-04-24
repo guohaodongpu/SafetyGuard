@@ -13,6 +13,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_electric_quantity_id: {
-                Intent intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
+                Intent intent = new Intent(MainActivity.this,ElectricQuantityActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -206,8 +207,8 @@ public class MainActivity extends AppCompatActivity
 
     private void initBarScore() {
         mCircleDotProgressBar.setProgress(mClearController.getScore());
+        Log.d("getScore", String.valueOf(mClearController.getScore()));
     }
-
     private void initEvent() {
         mNavigationView.setNavigationItemSelectedListener(this);
         mBluetoothImageButton.setOnClickListener(this);
@@ -623,7 +624,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-        initBarScore();
+       initBarScore();
         updateAllIcon();
         updateAllTitle();
     }

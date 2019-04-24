@@ -77,7 +77,10 @@ public class ClearController {
     }
 
     public int getScore(){
+        Log.d("getAvailMemory", String.valueOf(getAvailMemory()));
+        Log.d("getTotalMemory", String.valueOf(getTotalMemory()));
         float scoreF=(float)getAvailMemory()/(float)getTotalMemory()*100;
+        Log.d("scoreF", String.valueOf(scoreF));
         return (int)scoreF;
     }
 
