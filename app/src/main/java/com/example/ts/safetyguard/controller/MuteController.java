@@ -12,6 +12,7 @@ import android.util.Log;
  * getMuteStatus() --- 判断当前是否为静音
  * setMute() --- 设置静音
  * cancelMute() --- 取消静音
+ * @Author:ghd
  */
 public class MuteController {
     private static final String TAG = "MuteController";

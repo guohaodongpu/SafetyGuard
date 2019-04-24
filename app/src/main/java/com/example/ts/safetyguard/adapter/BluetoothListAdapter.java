@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.ts.safetyguard.R;
-
+/**
+ * @Author:ghd
+ */
 import java.util.ArrayList;
 
 public class BluetoothListAdapter extends BaseAdapter {

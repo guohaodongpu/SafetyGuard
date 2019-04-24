@@ -1,6 +1,5 @@
 package com.example.ts.safetyguard.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
@@ -30,6 +29,7 @@ import com.example.ts.safetyguard.LoginActivity;
 import com.example.ts.safetyguard.R;
 import com.example.ts.safetyguard.controller.AirModeController;
 import com.example.ts.safetyguard.controller.BluetoothController;
+import com.example.ts.safetyguard.controller.ClearController;
 import com.example.ts.safetyguard.controller.FlashLightController;
 import com.example.ts.safetyguard.controller.MuteController;
 import com.example.ts.safetyguard.controller.WifiController;
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     private BluetoothController mBluetoothController;
     private AirModeController mAirModeController;
     private FlashLightController mFlashLightController;
+    private ClearController mClearController;
     private Toast mToast;
     private Menu mActivityMainDrawerMenu;
     private MenuItem mAirModeMenuItem;
@@ -190,6 +191,7 @@ public class MainActivity extends AppCompatActivity
         mNavigationView = findViewById(R.id.nav_view_id);
         mActivityMainDrawerMenu = mNavigationView.getMenu();
         mCircleDotProgressBar = findViewById(R.id.score_seek_bar_id);
+        initBarScore();
         mBluetoothImageButton = findViewById(R.id.on_off_bluetooth_bt_id);
         mMuteImageButton = findViewById(R.id.on_off_mute_bt_id);
         mFLashLightImageButton = findViewById(R.id.on_off_flashlight_bt_id);
@@ -197,6 +199,10 @@ public class MainActivity extends AppCompatActivity
         mAirModeMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_air_mode_id);
         mWifiMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_wifi_id);
         mBluetoothMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_bluetooth_id);
+    }
+
+    private void initBarScore() {
+        mCircleDotProgressBar.setProgress(mClearController.getScore());
     }
 
     private void initEvent() {
@@ -210,9 +216,10 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 if (!isProgressGoing) {
                     if (mScoreSeekBarProgress == mScoreSeekBarMax) {
-                        mScoreSeekBarProgress = 0;
+                        mScoreSeekBarProgress = mClearController.getScore();
                         mCircleDotProgressBar.setProgress(mScoreSeekBarProgress);
                     }
+                    mClearController.killProcess();
                     startProgress();
                 } else {
                     stopProgress();
@@ -233,6 +240,7 @@ public class MainActivity extends AppCompatActivity
     private void initScoreSeekBarData() {
         mScoreSeekBarMax = 100;
         readyProgress();
+        mScoreSeekBarProgress = mClearController.getScore();
     }
 
     private void readyProgress() {
@@ -262,7 +270,7 @@ public class MainActivity extends AppCompatActivity
         isProgressGoing = true;
         stopTimerTask();
         readyProgress();
-        mScoreSeekBarTimer.schedule(mTimerTask, 1000, 100);
+        mScoreSeekBarTimer.schedule(mTimerTask, 1000, 25);
     }
 
     private void stopTimerTask() {
@@ -287,6 +295,7 @@ public class MainActivity extends AppCompatActivity
         mAirModeController = new AirModeController(MainActivity.this);
         mFlashLightController = new FlashLightController(MainActivity.this);
         mWifiController = new WifiController(MainActivity.this);
+        mClearController = new ClearController(MainActivity.this);
     }
 
     private void updateAllIcon() {
@@ -585,6 +594,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        initBarScore();
         updateAllIcon();
         updateAllTitle();
     }
@@ -592,6 +602,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onRestart() {
         super.onRestart();
+        initBarScore();
         updateAllIcon();
         updateAllTitle();
     }

@@ -9,6 +9,7 @@ import android.util.Log;
  * getBluetoothStatus() --- 获取当前手机的蓝牙状态
  * openBluetooth() --- 开启蓝牙
  * closeBluetooth() --- 关闭蓝牙
+ * @Author:ghd
  */
 public class BluetoothController {
     private static final String TAG = "BluetoothController";
