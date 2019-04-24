@@ -81,4 +81,5 @@
     <string name="battery_status_not_charging">未充电</string>
     <string name="low_battery_need_charging">[电量过低，请充电]</string>
     <string name="battery_not_charging">[未连接充电器]</string>
+    <string name="battery">电池</string>
 </resources>

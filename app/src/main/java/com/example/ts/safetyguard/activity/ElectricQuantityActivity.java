@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.ts.safetyguard.R;
@@ -14,15 +16,13 @@ import com.example.ts.safetyguard.R;
 public class ElectricQuantityActivity extends AppCompatActivity {
     private TextView mTextView;
     private BroadcastReceiver mReceiver;
-    //private Context mContext;
 
-    /*public ElectricQuantityActivity(Context context) {
-        this.mContext = context;
-    }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_electric_quantity);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         mTextView = findViewById(R.id.electric_quantity_textview);
         monitorElectricQuantity();
     }
@@ -103,5 +103,18 @@ public class ElectricQuantityActivity extends AppCompatActivity {
         };
         IntentFilter electricQuantityFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(mReceiver,electricQuantityFilter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }

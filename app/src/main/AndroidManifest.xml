@@ -48,7 +48,8 @@
             android:name=".activity.CommentsActivity"
             android:label="@string/comments_title" />
         <activity android:name=".activity.WifiActivity" />
-        <activity android:name=".activity.ElectricQuantityActivity"></activity>
+        <activity android:name=".activity.ElectricQuantityActivity"
+            android:label="@string/battery" />
     </application>
 
 </manifest>
