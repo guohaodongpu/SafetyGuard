@@ -211,10 +211,14 @@ public class MainActivity extends AppCompatActivity
     private void initEvent() {
         mNavigationView.setNavigationItemSelectedListener(this);
         mBluetoothImageButton.setOnClickListener(this);
+        mBluetoothImageButton.setOnLongClickListener(this);
         mMuteImageButton.setOnClickListener(this);
+        mMuteImageButton.setOnLongClickListener(this);
         mFLashLightImageButton.setOnClickListener(this);
         mWifiImageButton.setOnClickListener(this);
+        mWifiImageButton.setOnLongClickListener(this);
         mCircleDotProgressBar.setOnButtonClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if (!isProgressGoing) {
@@ -483,7 +487,8 @@ public class MainActivity extends AppCompatActivity
 
             //Wifi
             case R.id.on_off_wifi_bt_id: {
-                showWifiToast();
+                Intent i = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(i);
                 break;
             }
 
