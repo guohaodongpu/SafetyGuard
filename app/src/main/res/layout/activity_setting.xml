@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SettingActivity">
+
+
+
+    <TextView
+        android:id="@+id/textView_volume_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="音量调节"
+        android:textColor="#ADFF2F"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"/>
+
+    <TextView
+        android:id="@+id/textView_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="当前闹钟音量:  "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_volume_title" />
+
+    <TextView
+        android:id="@+id/textView_alarm_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text=""
+        app:layout_constraintLeft_toRightOf="@+id/textView_alarm"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_alarm"/>
+
+    <SeekBar
+        android:id="@+id/seekBar_alarm"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:min="1"
+        app:layout_constraintTop_toBottomOf="@id/textView_alarm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView_music"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="当前媒体音量:  "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seekBar_alarm"/>
+
+    <TextView
+        android:id="@+id/textView_music_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text=""
+        app:layout_constraintLeft_toRightOf="@+id/textView_music"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_music"/>
+
+    <SeekBar
+        android:id="@+id/seekBar_music"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toBottomOf="@id/textView_music"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView_voice_call"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="当前通话音量:  "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seekBar_music"/>
+
+    <TextView
+        android:id="@+id/textView_voice_call_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text=""
+        app:layout_constraintLeft_toRightOf="@+id/textView_voice_call"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_voice_call"/>
+
+    <SeekBar
+        android:id="@+id/seekBar_voice_call"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:min="1"
+        app:layout_constraintTop_toBottomOf="@id/textView_voice_call"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView_ring"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="当前铃声音量:  "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seekBar_voice_call"/>
+
+    <TextView
+        android:id="@+id/textView_ring_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text=""
+        app:layout_constraintLeft_toRightOf="@+id/textView_ring"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_ring"/>
+
+    <SeekBar
+        android:id="@+id/seekBar_ring"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toBottomOf="@id/textView_ring"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+
+</android.support.constraint.ConstraintLayout>
