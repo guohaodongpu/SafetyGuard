@@ -2,9 +2,7 @@ package com.example.ts.safetyguard.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +19,6 @@ import com.example.ts.safetyguard.R;
 import com.example.ts.safetyguard.adapter.NotepadAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class NotepadActivity extends AppCompatActivity implements View.OnClickListener{

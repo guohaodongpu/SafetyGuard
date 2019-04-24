@@ -50,6 +50,8 @@
         <activity android:name=".activity.WifiActivity" />
         <activity android:name=".activity.ElectricQuantityActivity"
             android:label="@string/battery" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.NotepadActivity"/>
     </application>
 
 </manifest>
