@@ -330,6 +330,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void updateWifiTitle() {
+        if(mWifiController.getWifiStatus()) {
+            mWifiMenuItem.setTitle(getString(R.string.title_wifi_on));
+        } else {
+            mWifiMenuItem.setTitle(getString(R.string.title_wifi_off));
+        }
+    }
+
     private void updateBluetoothTitle() {
         if (mBluetoothController.getBluetoothStatus()) {
             mBluetoothMenuItem.setTitle(getString(R.string.title_bluetooth_on));
@@ -389,12 +397,12 @@ public class MainActivity extends AppCompatActivity
             int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, -1);
             switch (wifiState) {
                 case WifiManager.WIFI_STATE_DISABLED:
-                    mWifiImageButton.setImageDrawable(getResources()
-                            .getDrawable(R.drawable.ic_menu_wifi));
+                    updateWifiIcon();
+                    updateWifiTitle();
                     break;
                 case WifiManager.WIFI_STATE_ENABLED:
-                    mWifiImageButton.setImageDrawable(getResources()
-                            .getDrawable(R.drawable.ic_icon_wifi_isopen));
+                    updateWifiIcon();
+                    updateWifiTitle();
                     break;
                 default:
                     break;
@@ -488,8 +496,8 @@ public class MainActivity extends AppCompatActivity
 
             //Wifi
             case R.id.on_off_wifi_bt_id: {
-                Intent i = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                startActivity(i);
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                startActivity(intent);
                 break;
             }
 

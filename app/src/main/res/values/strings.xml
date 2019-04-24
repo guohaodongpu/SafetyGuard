@@ -56,6 +56,8 @@
     <string name="title_air_mode_off">飞行模式: OFF</string>
     <string name="title_bluetooth_on">蓝牙: ON</string>
     <string name="title_bluetooth_off">蓝牙: OFF</string>
+    <string name="title_wifi_on">无线: ON</string>
+    <string name="title_wifi_off">无线: OFF</string>
     <string name="title_electric_quantity">电量：</string>
     <string name="title_activity_bluetooth">BluetoothActivity</string>
     <string name="toast_not_supported_bluetooth">不支持蓝牙</string>

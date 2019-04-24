@@ -22,7 +22,7 @@ public class ElectricQuantityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_electric_quantity);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);   // 给左上角图标的左边加上一个返回的图标
         mTextView = findViewById(R.id.electric_quantity_textview);
         monitorElectricQuantity();
     }
