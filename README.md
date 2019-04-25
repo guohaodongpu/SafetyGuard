@@ -25,7 +25,7 @@ SafetyGuard APP
 |<br>
 |--electric quantity --- luyq<br>
 |<br>
-|--motepad --- donghy<br>
+|--notepad --- donghy<br>
 |<br>
 |--brightness --- donghy<br>
 |<br>
