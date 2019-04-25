@@ -6,35 +6,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.ts.safetyguard.R;
-import com.example.ts.safetyguard.adapter.WifiListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WifiActivity extends AppCompatActivity {
     private ArrayList<String> mWifiList = new ArrayList<String>();
-    private WifiListAdapter mWifiAdapter;
     private ListView mListView;
     private Button mButton;
     private WifiManager mWifiManager;
@@ -67,7 +60,6 @@ public class WifiActivity extends AppCompatActivity {
     private void initListView() {
         mListView = findViewById(R.id.wifi_list_view);
         mButton = findViewById(R.id.scan_button);
-        mWifiAdapter = new WifiListAdapter(mWifiList,WifiActivity.this);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
     }
 
@@ -86,10 +78,9 @@ public class WifiActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             mScanResults = mWifiManager.getScanResults();
             Log.d("mScanResults", String.valueOf(mScanResults.size()));
-            unregisterReceiver(this);
 
             for(ScanResult sr : mScanResults){
-                mWifiList.add(sr.SSID+ "\n" + sr.level + "dBm" );
+                mWifiList.add(sr.SSID+ "   " + "信号强度" + sr.level  );
                 mAdapter.notifyDataSetChanged();
             }
         }
@@ -128,4 +119,10 @@ public class WifiActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
 }

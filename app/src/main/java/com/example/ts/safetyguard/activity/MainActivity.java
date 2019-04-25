@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity
     private ImageButton mMuteImageButton;
     private ImageButton mFLashLightImageButton;
     private ImageButton mWifiImageButton;
-    private TextView mTotalMemoryTextView;
-    private TextView mAvailMemoryTextView;
     private WifiController mWifiController;
     private MuteController mMuteController;
     private BluetoothController mBluetoothController;
@@ -237,9 +235,6 @@ public class MainActivity extends AppCompatActivity
         mWifiMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_wifi_id);
         mBluetoothMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_bluetooth_id);
         mElectricQuantityMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_electric_quantity_id);
-        mAvailMemoryTextView = findViewById(R.id.avail_memory_tv_id);
-        mTotalMemoryTextView = findViewById(R.id.total_memory_tv_id);
-        initMemoryTextView();
     }
 
     private void initBarScore() {
@@ -271,11 +266,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-    }
-
-    private void initMemoryTextView() {
-        mTotalMemoryTextView.setText(getString(R.string.total_memory_text)+String.valueOf(mClearController.getTotalMemory())+"M");
-        mAvailMemoryTextView.setText(getString(R.string.avail_memory_text)+String.valueOf(mClearController.getAvailMemory())+"M");
     }
 
     private void initIntentFilter() {
@@ -748,7 +738,6 @@ public class MainActivity extends AppCompatActivity
     protected void onRestart() {
         super.onRestart();
         initBarScore();
-        initMemoryTextView();
         updateAllIcon();
         updateAllTitle();
     }
