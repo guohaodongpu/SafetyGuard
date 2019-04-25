@@ -41,14 +41,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/go_to_sign_text_size"
-            android:text="@string/total_memory_text"/>
+            android:text="@string/total_memory_text"
+            android:textColor="@color/white"/>
         <TextView
             android:id="@+id/avail_memory_tv_id"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/go_to_sign_text_size"
-            android:text="@string/avail_memory_text"/>
+            android:text="@string/avail_memory_text"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <TableLayout

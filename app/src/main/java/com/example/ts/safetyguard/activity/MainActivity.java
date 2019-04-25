@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity
         initScoreSeekBarData();
         initView();
         initEvent();
-        initMemoryTextView();
         updateAllIcon();
         updateAllTitle();
     }
@@ -240,6 +239,7 @@ public class MainActivity extends AppCompatActivity
         mElectricQuantityMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_electric_quantity_id);
         mAvailMemoryTextView = findViewById(R.id.avail_memory_tv_id);
         mTotalMemoryTextView = findViewById(R.id.total_memory_tv_id);
+        initMemoryTextView();
     }
 
     private void initBarScore() {
@@ -748,6 +748,7 @@ public class MainActivity extends AppCompatActivity
     protected void onRestart() {
         super.onRestart();
         initBarScore();
+        initMemoryTextView();
         updateAllIcon();
         updateAllTitle();
     }
