@@ -11,4 +11,5 @@
     <dimen name="login_title_text_size">50sp</dimen>
     <dimen name="email_font_size">20sp</dimen>
     <dimen name="email_margin">15dp</dimen>
+    <dimen name="go_to_sign_text_size">17sp</dimen>
 </resources>
