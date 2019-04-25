@@ -31,6 +31,25 @@
             zjun:unitTextAlignMode="CN"
             zjun:unitTextSize="20sp" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/total_memory_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/go_to_sign_text_size"
+            android:text="@string/total_memory_text"/>
+        <TextView
+            android:id="@+id/avail_memory_tv_id"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/go_to_sign_text_size"
+            android:text="@string/avail_memory_text"/>
+    </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
