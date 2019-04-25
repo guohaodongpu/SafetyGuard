@@ -17,6 +17,8 @@ SafetyGuard APP
 |<br>
 |--sign in/sign out --- guohd<br>
 |<br>
+|--clear --- guohd<br>
+|<br>
 |--flash --- guohd<br>
 |<br>
 |--airmode --- guohd<br>
