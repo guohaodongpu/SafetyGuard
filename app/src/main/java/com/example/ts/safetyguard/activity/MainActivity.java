@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity
         mNavigationView = findViewById(R.id.nav_view_id);
         mActivityMainDrawerMenu = mNavigationView.getMenu();
         mCircleDotProgressBar = findViewById(R.id.score_seek_bar_id);
-        initBarScore();
+        //initBarScore();
         mBluetoothImageButton = findViewById(R.id.on_off_bluetooth_bt_id);
         mMuteImageButton = findViewById(R.id.on_off_mute_bt_id);
         mFLashLightImageButton = findViewById(R.id.on_off_flashlight_bt_id);
@@ -237,10 +237,10 @@ public class MainActivity extends AppCompatActivity
         mElectricQuantityMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_electric_quantity_id);
     }
 
-    private void initBarScore() {
+   /* private void initBarScore() {
         mCircleDotProgressBar.setProgress(mClearController.getScore());
         Log.d("getScore", String.valueOf(mClearController.getScore()));
-    }
+    }*/
     private void initEvent() {
         mNavigationView.setNavigationItemSelectedListener(this);
         mBluetoothImageButton.setOnClickListener(this);
@@ -729,7 +729,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         mContentResolver.registerContentObserver(mBrightnessUri,true,mBrightnessObserver);
-        initBarScore();
+       // initBarScore();
         updateAllIcon();
         updateAllTitle();
     }
@@ -737,7 +737,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-        initBarScore();
+        //initBarScore();
         updateAllIcon();
         updateAllTitle();
     }
