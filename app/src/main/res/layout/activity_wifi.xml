@@ -18,7 +18,7 @@
 
     <ListView
         android:id="@+id/wifi_list_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/scan_button"
