@@ -2,6 +2,7 @@ package com.example.ts.safetyguard.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,11 +26,8 @@ import com.example.ts.safetyguard.adapter.NotepadAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotepadActivity extends AppCompatActivity implements View.OnClickListener{
+public class NotepadActivity extends AppCompatActivity{
     private RecyclerView recyclerView_notepad;
-    private Button button_add_notepad;
-    private Button button_del_notepad;
-    private Button button_exit_notepad;
     private EditText edit_dialog_notepad;
     private List<String> mList;
 
@@ -46,10 +46,6 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         findView();
-        button_add_notepad.setOnClickListener(this);
-        button_del_notepad.setOnClickListener(this);
-        button_exit_notepad.setOnClickListener(this);
-
         mSharedPreferences = getSharedPreferences("notepad", Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
 
@@ -59,35 +55,16 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void findView() {
-        recyclerView_notepad = findViewById(R.id.recyclerView_notepad);
-        button_add_notepad = findViewById(R.id.button_add_notepad);
-        button_del_notepad = findViewById(R.id.button_del_notepad);
-        button_exit_notepad = findViewById(R.id.button_exit_notepad);
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        //设置menu界面为res/menu/menu.xml
+        inflater.inflate(R.menu.notepad , menu);
+        return true;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button_add_notepad: {
-                showNotepadDialog();
-                break;
-            }
-            case R.id.button_del_notepad: {
-                mEditor.clear().commit();
-                dataName = 0;
-                mList = new ArrayList<>();
-                setAdapter();
-                break;
-            }
-            case R.id.button_exit_notepad: {
-                NotepadActivity.this.finish();
-                break;
-            }
-            default: {
-                break;
-            }
-        }
+    private void findView() {
+        recyclerView_notepad = findViewById(R.id.recyclerView_notepad);
     }
 
     //设置设配器
@@ -171,9 +148,21 @@ public class NotepadActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case android.R.id.home:
+            case android.R.id.home:{
                 finish();
                 return true;
+            }
+            case R.id.add_notepad:{
+                showNotepadDialog();
+                return true;
+            }
+            case R.id.remove_notepad:{
+                mEditor.clear().commit();
+                dataName = 0;
+                mList = new ArrayList<>();
+                setAdapter();
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }

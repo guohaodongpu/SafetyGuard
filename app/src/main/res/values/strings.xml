@@ -89,4 +89,8 @@
     <string name="start_scan">开始扫描</string>
     <string name="avail_memory_text">可用内存:</string>
     <string name="total_memory_text">手机总内存:</string>
+    <string name="add_notepad_title">增加备忘录</string>
+    <string name="remove_notepad_title">清空备忘录</string>
+    <string name="notepad_title">备忘录</string>
+    <string name="sound_volume_title">音量调节</string>
 </resources>
