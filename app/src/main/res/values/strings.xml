@@ -61,6 +61,7 @@
     <string name="title_electric_quantity">电量：</string>
     <string name="title_activity_bluetooth">BluetoothActivity</string>
     <string name="toast_not_supported_bluetooth">不支持蓝牙</string>
+    <string name="toast_not_supported_wifi">不支持Wifi</string>
     <string name="comments_title">意见和反馈</string>
     <string name="hint_please_input_your_comments">请填写您的意见和反馈...</string>
     <string name="comments_tv_name">姓名:</string>

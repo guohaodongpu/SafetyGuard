@@ -155,6 +155,12 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.nav_wifi_id: {
+                if(mWifiController.isReadyWifi()) {
+                    Intent intent = new Intent(MainActivity.this,WifiActivity.class);
+                    startActivity(intent);
+                } else {
+                    showToast(getString(R.string.toast_not_supported_wifi));
+                }
                 break;
             }
             case R.id.nav_bluetooth_id: {
@@ -522,8 +528,12 @@ public class MainActivity extends AppCompatActivity
 
             //Wifi
             case R.id.on_off_wifi_bt_id: {
-                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                startActivity(intent);
+                if(mWifiController.isReadyWifi()) {
+                    Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                    startActivity(intent);
+                } else {
+                    showToast(getString(R.string.toast_not_supported_wifi));
+                }
                 break;
             }
 
@@ -573,12 +583,14 @@ public class MainActivity extends AppCompatActivity
     private void showWifiToast() {
         if (!mWifiController.getWifiStatus()) {
             if (mWifiController.openWifi()) {
+                updateWifiIcon();
                 showToast(getString(R.string.toast_open_wifi_success));
             } else {
                 showToast(getString(R.string.toast_open_wifi_fail));
             }
         } else {
             if (mWifiController.closeWifi()) {
+                updateWifiIcon();
                 showToast(getString(R.string.toast_close_wifi_success));
             } else {
                 showToast(getString(R.string.toast_close_wifi_fail));
@@ -725,7 +737,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-       initBarScore();
+        initBarScore();
         updateAllIcon();
         updateAllTitle();
     }
