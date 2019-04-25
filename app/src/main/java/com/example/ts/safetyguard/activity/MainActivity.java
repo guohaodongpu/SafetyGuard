@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity
     private ImageButton mMuteImageButton;
     private ImageButton mFLashLightImageButton;
     private ImageButton mWifiImageButton;
+    private TextView mTotalMemoryTextView;
+    private TextView mAvailMemoryTextView;
     private WifiController mWifiController;
     private MuteController mMuteController;
     private BluetoothController mBluetoothController;
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity
     private ContentResolver mContentResolver;
     private Uri mBrightnessUri;
     private int mSystemBrightness;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,8 +158,8 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.nav_wifi_id: {
-                if(mWifiController.isReadyWifi()) {
-                    Intent intent = new Intent(MainActivity.this,WifiActivity.class);
+                if (mWifiController.isReadyWifi()) {
+                    Intent intent = new Intent(MainActivity.this, WifiActivity.class);
                     startActivity(intent);
                 } else {
                     showToast(getString(R.string.toast_not_supported_wifi));
@@ -173,7 +176,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_electric_quantity_id: {
-                Intent intent = new Intent(MainActivity.this,ElectricQuantityActivity.class);
+                Intent intent = new Intent(MainActivity.this, ElectricQuantityActivity.class);
                 startActivity(intent);
                 break;
             }
@@ -187,12 +190,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_sound_volume: {
-                Intent goIntent = new Intent(MainActivity.this,SettingActivity.class);
+                Intent goIntent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(goIntent);
                 break;
             }
             case R.id.nav_memorandum_book: {
-                Intent goIntent = new Intent(MainActivity.this,NotepadActivity.class);
+                Intent goIntent = new Intent(MainActivity.this, NotepadActivity.class);
                 startActivity(goIntent);
                 break;
             }
@@ -235,12 +238,21 @@ public class MainActivity extends AppCompatActivity
         mWifiMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_wifi_id);
         mBluetoothMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_bluetooth_id);
         mElectricQuantityMenuItem = mActivityMainDrawerMenu.findItem(R.id.nav_electric_quantity_id);
+        mAvailMemoryTextView = findViewById(R.id.avail_memory_tv_id);
+        mTotalMemoryTextView = findViewById(R.id.total_memory_tv_id);
+        initMemoryTextView();
+    }
+
+    private void initMemoryTextView() {
+        mTotalMemoryTextView.setText(getString(R.string.total_memory_text) + String.valueOf(mClearController.getTotalMemory()) + "M");
+        mAvailMemoryTextView.setText(getString(R.string.avail_memory_text) + String.valueOf(mClearController.getAvailMemory()) + "M");
     }
 
     private void initBarScore() {
         mCircleDotProgressBar.setProgress(mClearController.getScore());
         Log.d("getScore", String.valueOf(mClearController.getScore()));
     }
+
     private void initEvent() {
         mNavigationView.setNavigationItemSelectedListener(this);
         mBluetoothImageButton.setOnClickListener(this);
@@ -276,7 +288,7 @@ public class MainActivity extends AppCompatActivity
         IntentFilter airModeFilter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
         registerReceiver(receiver, airModeFilter);
         IntentFilter electricQuantityFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        registerReceiver(receiver,electricQuantityFilter);
+        registerReceiver(receiver, electricQuantityFilter);
     }
 
     private void initScoreSeekBarData() {
@@ -363,7 +375,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void updateWifiTitle() {
-        if(mWifiController.getWifiStatus()) {
+        if (mWifiController.getWifiStatus()) {
             mWifiMenuItem.setTitle(getString(R.string.title_wifi_on));
         } else {
             mWifiMenuItem.setTitle(getString(R.string.title_wifi_off));
@@ -482,7 +494,7 @@ public class MainActivity extends AppCompatActivity
             }
 
             //电量
-            if(intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
+            if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
                 mElectricQuantity = mElectricQuantityController.getElectricQuantity(intent);
                 updateElectricQuantityTitle();
             }
@@ -528,7 +540,7 @@ public class MainActivity extends AppCompatActivity
 
             //Wifi
             case R.id.on_off_wifi_bt_id: {
-                if(mWifiController.isReadyWifi()) {
+                if (mWifiController.isReadyWifi()) {
                     Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
                     startActivity(intent);
                 } else {
@@ -659,7 +671,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     //申请修改系统设置权限
-    private void verifyStoragePermissions(){
+    private void verifyStoragePermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.System.canWrite(this)) {
                 Toast.makeText(this,
@@ -682,13 +694,13 @@ public class MainActivity extends AppCompatActivity
 
     private void showDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_brightness,null);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_brightness, null);
         seekBar_system_brightness = dialogView.findViewById(R.id.seekBar_system_brightness);
         textView_system_brightness = dialogView.findViewById(R.id.textView_system_brightness);
         //value = 0为手动调节亮度 value = 1 为自动调节亮度
-        Settings.System.putInt(mContentResolver,Settings.System.SCREEN_BRIGHTNESS_MODE,0);
+        Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE, 0);
         //获取当前的系统亮度  系统亮度为0-255
-        mSystemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS,255);
+        mSystemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS, 255);
         textView_system_brightness.setText("当前的亮度为:" + mSystemBrightness);
         //设置seekBar游标初始位置
         seekBar_system_brightness.setProgress(mSystemBrightness);
@@ -696,8 +708,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 textView_system_brightness.setText("当前的亮度为:" + progress);
-                Settings.System.putInt(mContentResolver,Settings.System.SCREEN_BRIGHTNESS,progress);
-                mContentResolver.notifyChange(mBrightnessUri,null);
+                Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS, progress);
+                mContentResolver.notifyChange(mBrightnessUri, null);
             }
 
             @Override
@@ -719,7 +731,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-            mSystemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS,255);
+            mSystemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS, 255);
             textView_system_brightness.setText("当前的亮度为:" + mSystemBrightness);
             seekBar_system_brightness.setProgress(mSystemBrightness);
         }
@@ -728,7 +740,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        mContentResolver.registerContentObserver(mBrightnessUri,true,mBrightnessObserver);
+        mContentResolver.registerContentObserver(mBrightnessUri, true, mBrightnessObserver);
+        initMemoryTextView();
         initBarScore();
         updateAllIcon();
         updateAllTitle();
@@ -737,6 +750,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onRestart() {
         super.onRestart();
+        initMemoryTextView();
         initBarScore();
         updateAllIcon();
         updateAllTitle();
