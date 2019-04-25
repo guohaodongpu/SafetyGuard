@@ -1,30 +1,32 @@
 # SafetyGuard
 SafetyGuard APP
 
-这是个手机管家APP
-大致功能：
-1、蓝牙、WIFI、静音
-2、手电筒、显示电量、飞行模式
-3、音量和亮度调节
+手机管家APP<br>
+#### 大致功能：<br>
+1、蓝牙、WIFI、静音<br>
+2、手电筒、显示电量、飞行模式<br>
+3、音量和亮度调节<br>
 
-<--Owner Info-->
+#### Owner Info<br>
 
-/--wifi  --- luyq
-|
-|--bluetooth --- guohd
-|
-|--mute --- guohd
-|
-|--sign in/sign out --- guohd
-|
-|--flash --- guohd
-|
-|--airmode --- guohd
-|
-|--electric quantity --- luyq
-|
-|--motepad --- donghy
-|
-|--brightness --- donghy
-|
-\--sound_volume --- donghy
+|--wifi  --- luyq<br>
+|<br>
+|--bluetooth --- guohd<br>
+|<br>
+|--mute --- guohd<br>
+|<br>
+|--sign in/sign out --- guohd<br>
+|<br>
+|--clear --- guohd<br>
+|<br>
+|--flash --- guohd<br>
+|<br>
+|--airmode --- guohd<br>
+|<br>
+|--electric quantity --- luyq<br>
+|<br>
+|--notepad --- donghy<br>
+|<br>
+|--brightness --- donghy<br>
+|<br>
+|--sound_volume --- donghy<br>
