@@ -47,6 +47,7 @@ public class NotepadAdapter extends RecyclerView.Adapter<NotepadAdapter.ViewHold
         String data = mSharedPreferences.getString("" + i ,"");
         viewHolder.textView_event.setText(data);
         i++;
+
     }
 
     @Override

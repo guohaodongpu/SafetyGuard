@@ -51,7 +51,6 @@ public class WifiActivity extends AppCompatActivity {
             Toast.makeText(this ,"Wifi",Toast.LENGTH_LONG).show();
             mWifiManager.setWifiEnabled(true);
         }
-
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,mWifiList);
         mListView.setAdapter(mAdapter);
     }
@@ -71,6 +70,7 @@ public class WifiActivity extends AppCompatActivity {
         registerReceiver(receiver,intentFilter);
         mWifiManager.startScan();
         Toast.makeText(this,"Scanning...",Toast.LENGTH_SHORT).show();
+
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -81,8 +81,9 @@ public class WifiActivity extends AppCompatActivity {
 
             for(ScanResult sr : mScanResults){
                 mWifiList.add(sr.SSID+ "   " + "信号强度" + sr.level  );
-                mAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();//界面重绘，保留原有位置、数据信息
             }
+            mScanResults.clear();
         }
     };
 
