@@ -48,10 +48,13 @@ public class WifiActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mWifiList.clear();
                 Log.d("WifiListClear", String.valueOf(mWifiList.size()));
+
+                mWifiManager.startScan();
                 registerPermission();
                 mFlag = false;
             }
         });
+
         if(!mWifiManager.isWifiEnabled()) {
             Toast.makeText(this ,"Wifi",Toast.LENGTH_LONG).show();
             mWifiManager.setWifiEnabled(true);
@@ -89,7 +92,7 @@ public class WifiActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("performClick");
         registerReceiver(receiver,intentFilter);
-        mWifiManager.startScan();
+        //mWifiManager.startScan();
         Toast.makeText(this,"Scanning...",Toast.LENGTH_SHORT).show();
 
         mScanResults = mWifiManager.getScanResults();
@@ -120,7 +123,14 @@ public class WifiActivity extends AppCompatActivity {
                     PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION);
 
         } else {
-            scanWifi();
+            if(mWifiManager.isWifiEnabled()) {
+                scanWifi();
+            } else {
+                mFlag = true;
+                mTimer.cancel();
+                mWifiManager.setWifiEnabled(true);
+                return;
+            }
         }
     }
 
