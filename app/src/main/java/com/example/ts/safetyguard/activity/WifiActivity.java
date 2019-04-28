@@ -40,7 +40,7 @@ public class WifiActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi);
-        init();
+        initEvent();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +60,7 @@ public class WifiActivity extends AppCompatActivity {
             mWifiManager.setWifiEnabled(true);
         }
 
-        mTimer.schedule(new TimerTask() {
+       mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 if (mFlag != true){
@@ -73,11 +73,7 @@ public class WifiActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
-    private void init() {
+    private void initEvent() {
         mListView = findViewById(R.id.wifi_list_view);
         mButton = findViewById(R.id.scan_button);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -160,6 +156,7 @@ public class WifiActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mTimer.cancel();
         unregisterReceiver(receiver);
     }
 }
