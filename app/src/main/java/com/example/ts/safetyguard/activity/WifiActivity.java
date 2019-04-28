@@ -40,7 +40,7 @@ public class WifiActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi);
-        initListView();
+        init();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +69,7 @@ public class WifiActivity extends AppCompatActivity {
                     sendBroadcast(intent);
                 }
             }
-        }, 0, 2000);
+        }, 0, 2500);
 
     }
 
@@ -77,11 +77,14 @@ public class WifiActivity extends AppCompatActivity {
 
 
 
-    private void initListView() {
+    private void init() {
         mListView = findViewById(R.id.wifi_list_view);
         mButton = findViewById(R.id.scan_button);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         mAdapter = new ArrayAdapter<>(WifiActivity.this, android.R.layout.simple_list_item_1,mWifiList);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("performClick");
+        registerReceiver(receiver,intentFilter);
     }
 
     private void scanWifi() {
@@ -89,9 +92,6 @@ public class WifiActivity extends AppCompatActivity {
         intentFilter.addAction("android.net.wifi.SCAN_RESULTS");
         intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
         registerReceiver(receiver,intentFilter);*/
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("performClick");
-        registerReceiver(receiver,intentFilter);
         //mWifiManager.startScan();
         Toast.makeText(this,"Scanning...",Toast.LENGTH_SHORT).show();
 
