@@ -37,7 +37,7 @@ public class ElectricQuantityActivity extends AppCompatActivity {
                 int status = intent.getIntExtra("status", -1);
                 int health = intent.getIntExtra("health", -1);
                 int level = -1;
-                if(rawlevel >= 0 && scale > 0){
+                if (rawlevel >= 0 && scale > 0){
                     level = (rawlevel*100)/scale;
                 }
                 sb.append(ElectricQuantityActivity.this.getString(R.string.battery_electric_quantity));

@@ -55,7 +55,7 @@ public class WifiActivity extends AppCompatActivity {
             }
         });
 
-        if(!mWifiManager.isWifiEnabled()) {
+        if (!mWifiManager.isWifiEnabled()) {
             Toast.makeText(this ,"Wifi",Toast.LENGTH_LONG).show();
             mWifiManager.setWifiEnabled(true);
         }
@@ -63,7 +63,7 @@ public class WifiActivity extends AppCompatActivity {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if(mFlag != true){
+                if (mFlag != true){
                     Intent intent = new Intent();
                     intent.setAction("performClick");
                     sendBroadcast(intent);
@@ -98,7 +98,7 @@ public class WifiActivity extends AppCompatActivity {
         mScanResults = mWifiManager.getScanResults();
         Log.d("mScanResults", String.valueOf(mScanResults.size()));
 
-        for(ScanResult sr : mScanResults){
+        for (ScanResult sr : mScanResults){
             mWifiList.add(sr.SSID + "   " + "信号强度" + sr.level);
         }
         Log.d("mWifiList", String.valueOf(mWifiList.size()));
@@ -123,7 +123,7 @@ public class WifiActivity extends AppCompatActivity {
                     PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION);
 
         } else {
-            if(mWifiManager.isWifiEnabled()) {
+            if (mWifiManager.isWifiEnabled()) {
                 scanWifi();
             } else {
                 mFlag = true;
