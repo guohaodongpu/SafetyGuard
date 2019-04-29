@@ -7,31 +7,18 @@
     tools:context=".activity.SettingActivity">
 
 
-
-    <TextView
-        android:id="@+id/textView_volume_title"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="音量调节"
-        android:textColor="#ADFF2F"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15"/>
-
     <TextView
         android:id="@+id/textView_alarm"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="当前闹钟音量:  "
+        android:text="@string/setting_alarm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_volume_title" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
 
     <TextView
         android:id="@+id/textView_alarm_volume"
@@ -55,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:gravity="center"
-        android:text="当前媒体音量:  "
+        android:text="@string/setting_music"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekBar_alarm"/>
@@ -82,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:gravity="center"
-        android:text="当前通话音量:  "
+        android:text="@string/setting_voice_call"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekBar_music"/>
@@ -109,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:gravity="center"
-        android:text="当前铃声音量:  "
+        android:text="@string/setting_ring"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekBar_voice_call"/>

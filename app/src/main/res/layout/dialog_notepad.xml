@@ -7,6 +7,6 @@
         android:id="@+id/edit_dialog_notepad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="输入记录" />
+        android:hint="@string/dialog_notepad" />
 
 </LinearLayout>

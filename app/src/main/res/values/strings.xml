@@ -97,4 +97,11 @@
     <string name="remove_notepad_title">清空备忘录</string>
     <string name="notepad_title">备忘录</string>
     <string name="sound_volume_title">音量调节</string>
+    <string name="setting_voice_call">当前通话音量:</string>
+    <string name="setting_music">当前媒体音量:</string>
+    <string name="setting_alarm">当前闹钟音量:</string>
+    <string name="setting_ring">当前铃声音量:</string>
+    <string name="brightness_title">亮度调节</string>
+    <string name="system_brightness">当前的亮度为:</string>
+    <string name="dialog_notepad">输入备忘录</string>
 </resources>
