@@ -8,6 +8,7 @@ import android.os.BatteryManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -32,10 +33,12 @@ public class ElectricQuantityActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 StringBuilder sb = new StringBuilder();
-                int rawlevel = intent.getIntExtra("level", -1);
-                int scale = intent.getIntExtra("scale", -1);
-                int status = intent.getIntExtra("status", -1);
-                int health = intent.getIntExtra("health", -1);
+                int rawlevel = intent.getIntExtra("level", -1); //电池电量
+                Log.d("level", String .valueOf(rawlevel));
+                int scale = intent.getIntExtra("scale", -1);   //电池最大容量
+                int status = intent.getIntExtra("status", -1);  //电池状态
+                int health = intent.getIntExtra("health", -1);   //电池健康度
+                int plugType = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
                 int level = -1;
                 if (rawlevel >= 0 && scale > 0){
                     level = (rawlevel*100)/scale;
@@ -96,7 +99,20 @@ public class ElectricQuantityActivity extends AppCompatActivity {
                         break;
 
                 }
-                sb.append(ElectricQuantityActivity.this.getString(R.string.battery_status)+batteryStatus);
+                sb.append(ElectricQuantityActivity.this.getString(R.string.battery_status) + batteryStatus + "\n");
+                if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
+                    sb.append(ElectricQuantityActivity.this.getString(R.string.battery_charge_style));
+                    switch (plugType) {
+                        case BatteryManager.BATTERY_PLUGGED_AC:
+                            sb.append(ElectricQuantityActivity.this.getString(R.string.battery_charge_AC));
+                            break;
+                        case BatteryManager.BATTERY_PLUGGED_USB:
+                            sb.append(ElectricQuantityActivity.this.getString(R.string.battery_charge_USB));
+                            break;
+                        case BatteryManager.BATTERY_PLUGGED_WIRELESS:
+                            sb.append(ElectricQuantityActivity.this.getString(R.string.battery_charge_WIRELESS));
+                    }
+                }
                 mTextView.setText(sb.toString());
 
             }

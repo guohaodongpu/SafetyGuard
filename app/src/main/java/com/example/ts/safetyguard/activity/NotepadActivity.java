@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotepadActivity extends AppCompatActivity{
-    private RecyclerView recyclerView_notepad;
-    private EditText edit_dialog_notepad;
+    private RecyclerView mRecyclerView_notepad;
+    private EditText mEdit_dialog_notepad;
     private List<String> mList;
 
     private SharedPreferences mSharedPreferences;
@@ -64,27 +64,27 @@ public class NotepadActivity extends AppCompatActivity{
     }
 
     private void findView() {
-        recyclerView_notepad = findViewById(R.id.recyclerView_notepad);
+        mRecyclerView_notepad = findViewById(R.id.recyclerView_notepad);
     }
 
     //设置设配器
     private void setAdapter() {
         NotepadAdapter adapter = new NotepadAdapter(NotepadActivity.this,mList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotepadActivity.this);
-        recyclerView_notepad.setLayoutManager(linearLayoutManager);
-        recyclerView_notepad.setAdapter(adapter);
+        mRecyclerView_notepad.setLayoutManager(linearLayoutManager);
+        mRecyclerView_notepad.setAdapter(adapter);
     }
 
     //添加新的事件
     private void showNotepadDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(NotepadActivity.this);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_notepad,null);
-        edit_dialog_notepad = dialogView.findViewById(R.id.edit_dialog_notepad);
+        mEdit_dialog_notepad = dialogView.findViewById(R.id.edit_dialog_notepad);
         builder.setTitle("添加事件");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String data = edit_dialog_notepad.getText().toString();
+                String data = mEdit_dialog_notepad.getText().toString();
                 if (!("".equals(data) || null == data)) {
                     mEditor.putString("" + dataName,data);
                     mList.add(data);

@@ -1,11 +1,13 @@
 package com.example.ts.safetyguard.activity;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -31,6 +33,7 @@ public class WifiActivity extends AppCompatActivity {
     private ListView mListView;
     private Button mButton;
     private WifiManager mWifiManager;
+    private LocationManager mLocationManager;
     private List<ScanResult> mScanResults;
     private ArrayAdapter mAdapter;
     private Timer mTimer = new Timer(true);
@@ -57,6 +60,9 @@ public class WifiActivity extends AppCompatActivity {
             Toast.makeText(this ,"Wifi",Toast.LENGTH_LONG).show();
             mWifiManager.setWifiEnabled(true);
         }
+        if (!mLocationManager.isLocationEnabled()) {
+            Toast.makeText(this,"位置信息未打开，请打开",Toast.LENGTH_LONG).show();
+        }
 
        mTimer.schedule(new TimerTask() {
             @Override
@@ -76,7 +82,9 @@ public class WifiActivity extends AppCompatActivity {
         mListView = findViewById(R.id.wifi_list_view);
         mButton = findViewById(R.id.scan_button);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
         mAdapter = new ArrayAdapter<>(WifiActivity.this, android.R.layout.simple_list_item_1,mWifiList);
+        //注册广播
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("performClick");
         registerReceiver(receiver,intentFilter);
@@ -113,7 +121,8 @@ public class WifiActivity extends AppCompatActivity {
     };
 
 
-
+    //动态申请权限
+    @TargetApi(Build.VERSION_CODES.P)
     private void registerPermission(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

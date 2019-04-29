@@ -46,7 +46,6 @@
         android:id="@+id/seekBar_alarm"
         android:layout_width="200dp"
         android:layout_height="30dp"
-        android:min="1"
         app:layout_constraintTop_toBottomOf="@id/textView_alarm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -101,7 +100,6 @@
         android:id="@+id/seekBar_voice_call"
         android:layout_width="200dp"
         android:layout_height="30dp"
-        android:min="1"
         app:layout_constraintTop_toBottomOf="@id/textView_voice_call"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
