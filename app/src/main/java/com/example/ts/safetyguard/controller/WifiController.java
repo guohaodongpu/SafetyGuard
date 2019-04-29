@@ -18,7 +18,7 @@ public class WifiController {
 
 
     public WifiController(Context context) {
-        mWifiManager= (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     }
 
     //是否支持Wifi

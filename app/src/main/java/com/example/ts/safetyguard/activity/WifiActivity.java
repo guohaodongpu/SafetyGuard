@@ -34,7 +34,7 @@ public class WifiActivity extends AppCompatActivity {
     private List<ScanResult> mScanResults;
     private ArrayAdapter mAdapter;
     private Timer mTimer = new Timer(true);
-    boolean mFlag = true;
+    boolean mFlag;
     int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,6 @@ public class WifiActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mWifiList.clear();
                 Log.d("WifiListClear", String.valueOf(mWifiList.size()));
-
-                mWifiManager.startScan();
                 registerPermission();
                 mFlag = false;
             }
@@ -69,11 +67,12 @@ public class WifiActivity extends AppCompatActivity {
                     sendBroadcast(intent);
                 }
             }
-        }, 0, 2500);
+        }, 0, 5000);
 
     }
 
     private void initEvent() {
+        mFlag = true;
         mListView = findViewById(R.id.wifi_list_view);
         mButton = findViewById(R.id.scan_button);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -88,9 +87,12 @@ public class WifiActivity extends AppCompatActivity {
         intentFilter.addAction("android.net.wifi.SCAN_RESULTS");
         intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
         registerReceiver(receiver,intentFilter);*/
-        //mWifiManager.startScan();
         Toast.makeText(this,"Scanning...",Toast.LENGTH_SHORT).show();
-
+        //Android 9.0 将 WiFiManager 的 startScan() 方法标为了废弃，
+        // 前台应用 2 分钟内只能使用 4 次startScan()，后台应用 30 分钟内只能调用 1次 startScan()，
+        // 否则会直接返回 false 并且不会触发扫描操作。
+        mWifiManager.startScan();
+        Log.d("startscan", String.valueOf(mWifiManager.startScan()) );
         mScanResults = mWifiManager.getScanResults();
         Log.d("mScanResults", String.valueOf(mScanResults.size()));
 

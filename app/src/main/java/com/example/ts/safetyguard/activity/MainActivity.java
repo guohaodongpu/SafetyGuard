@@ -700,11 +700,7 @@ public class MainActivity extends AppCompatActivity
         //value = 0为手动调节亮度 value = 1 为自动调节亮度
         Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE, 0);
         //获取当前的系统亮度  系统亮度为0-255
-        try {
-            mSystemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS);
-        } catch (Settings.SettingNotFoundException e) {
-            e.printStackTrace();
-        }
+        mSystemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS,255);
         textView_system_brightness.setText("当前的亮度为:" + mSystemBrightness);
         //设置seekBar游标初始位置
         seekBar_system_brightness.setProgress(mSystemBrightness);
@@ -735,12 +731,14 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-            try {
-                mSystemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS);
-                textView_system_brightness.setText("当前的亮度为:" + mSystemBrightness);
-                seekBar_system_brightness.setProgress(mSystemBrightness);
-            } catch (Settings.SettingNotFoundException e) {
-                e.printStackTrace();
+            if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.M) {
+                if (Settings.System.canWrite(MainActivity.this)) {
+                    mSystemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS,255);
+                    textView_system_brightness.setText("当前的亮度为:" + mSystemBrightness);
+                    seekBar_system_brightness.setProgress(mSystemBrightness);
+                }
+            }else {
+
             }
         }
     };
