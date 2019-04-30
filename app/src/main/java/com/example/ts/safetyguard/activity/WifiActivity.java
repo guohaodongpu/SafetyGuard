@@ -37,8 +37,10 @@ public class WifiActivity extends AppCompatActivity {
     private List<ScanResult> mScanResults;
     private ArrayAdapter mAdapter;
     private Timer mTimer = new Timer(true);
-    boolean mFlag;
-    int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1;
+    private boolean mFlag;
+    private static final int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1;
+    //设置权限之后回调函数中用于区别不同权限回调的自定义常量值
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class WifiActivity extends AppCompatActivity {
             Toast.makeText(this ,"Wifi",Toast.LENGTH_LONG).show();
             mWifiManager.setWifiEnabled(true);
         }
+
         if (!mLocationManager.isLocationEnabled()) {
             Toast.makeText(this,"位置信息未打开，请打开",Toast.LENGTH_LONG).show();
         }
@@ -67,7 +70,7 @@ public class WifiActivity extends AppCompatActivity {
        mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (mFlag != true){
+                if (mFlag != true) {
                     Intent intent = new Intent();
                     intent.setAction("performClick");
                     sendBroadcast(intent);
@@ -104,7 +107,7 @@ public class WifiActivity extends AppCompatActivity {
         mScanResults = mWifiManager.getScanResults();
         Log.d("mScanResults", String.valueOf(mScanResults.size()));
 
-        for (ScanResult sr : mScanResults){
+        for (ScanResult sr : mScanResults) {
             mWifiList.add(sr.SSID + "   " + "信号强度" + sr.level);
         }
         Log.d("mWifiList", String.valueOf(mWifiList.size()));
@@ -123,7 +126,7 @@ public class WifiActivity extends AppCompatActivity {
 
     //动态申请权限
     @TargetApi(Build.VERSION_CODES.P)
-    private void registerPermission(){
+    private void registerPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
@@ -152,7 +155,6 @@ public class WifiActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

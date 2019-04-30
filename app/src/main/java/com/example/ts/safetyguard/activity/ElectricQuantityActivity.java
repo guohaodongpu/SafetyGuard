@@ -40,6 +40,7 @@ public class ElectricQuantityActivity extends AppCompatActivity {
                 int health = intent.getIntExtra("health", -1);   //电池健康度
                 int plugType = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
                 int level = -1;
+
                 if (rawlevel >= 0 && scale > 0){
                     level = (rawlevel*100)/scale;
                 }
@@ -73,22 +74,22 @@ public class ElectricQuantityActivity extends AppCompatActivity {
                 }
                 sb.append(ElectricQuantityActivity.this.getString(R.string.battery_health) + healthStatus + "\n");
 
-                String batteryStatus ="";
+                String batteryStatus = "";
                 switch (status) {
                     case BatteryManager.BATTERY_STATUS_UNKNOWN:
-                        batteryStatus=ElectricQuantityActivity.this.getString(R.string.battery_status_unknown);
+                        batteryStatus = ElectricQuantityActivity.this.getString(R.string.battery_status_unknown);
                         break;
                     case BatteryManager.BATTERY_STATUS_CHARGING:
-                        batteryStatus=ElectricQuantityActivity.this.getString(R.string.battery_status_charging);
+                        batteryStatus = ElectricQuantityActivity.this.getString(R.string.battery_status_charging);
                         break;
                     case BatteryManager.BATTERY_STATUS_FULL:
-                        batteryStatus=ElectricQuantityActivity.this.getString(R.string.battery_status_full);
+                        batteryStatus = ElectricQuantityActivity.this.getString(R.string.battery_status_full);
                         break;
                     case BatteryManager.BATTERY_STATUS_DISCHARGING:
-                        batteryStatus=ElectricQuantityActivity.this.getString(R.string.battery_status_discharging);
+                        batteryStatus = ElectricQuantityActivity.this.getString(R.string.battery_status_discharging);
                         break;
                     case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
-                        batteryStatus=ElectricQuantityActivity.this.getString(R.string.battery_status_not_charging);
+                        batteryStatus = ElectricQuantityActivity.this.getString(R.string.battery_status_not_charging);
                         break;
                     default:
                         if(level <= 10)
@@ -100,6 +101,7 @@ public class ElectricQuantityActivity extends AppCompatActivity {
 
                 }
                 sb.append(ElectricQuantityActivity.this.getString(R.string.battery_status) + batteryStatus + "\n");
+
                 if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
                     sb.append(ElectricQuantityActivity.this.getString(R.string.battery_charge_style));
                     switch (plugType) {
@@ -123,7 +125,6 @@ public class ElectricQuantityActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

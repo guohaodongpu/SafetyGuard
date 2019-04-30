@@ -16,14 +16,13 @@ public class WifiController {
     private static final String TAG = "WifiController";
     private WifiManager mWifiManager;
 
-
     public WifiController(Context context) {
         mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     }
 
     //是否支持Wifi
     public boolean isReadyWifi() {
-        if(mWifiManager !=null) {
+        if (mWifiManager != null) {
             return true;
         } else {
             return false;
@@ -32,7 +31,7 @@ public class WifiController {
 
     //获取当前手机的Wifi状态
     public boolean getWifiStatus() {
-        if(isReadyWifi()) {
+        if (isReadyWifi()) {
             return mWifiManager.isWifiEnabled();
         } else {
             return false;
@@ -41,7 +40,7 @@ public class WifiController {
 
     //打开Wifi
     public boolean openWifi() {
-        if(isReadyWifi() && !getWifiStatus()){
+        if (isReadyWifi() && !getWifiStatus()) {
             mWifiManager.setWifiEnabled(true);
             Log.d(TAG,"openWifi: ");
             return true;
@@ -52,7 +51,7 @@ public class WifiController {
 
     //关闭Wifi
     public boolean closeWifi() {
-        if(isReadyWifi() &&getWifiStatus()) {
+        if (isReadyWifi() &&getWifiStatus()) {
             mWifiManager.setWifiEnabled(false);
             Log.d(TAG,"closeWifi: ");
             return true;
