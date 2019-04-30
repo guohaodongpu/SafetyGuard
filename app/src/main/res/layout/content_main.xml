@@ -27,13 +27,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/score_seek_bar_size"
                 android:background="@color/LightSkyBlue"
-                zjun:buttonTextSize="20sp"
-                zjun:buttonTopOffset="20dp"
-                zjun:percentTextSize="70sp"
+                zjun:buttonTextSize="@dimen/content_button_text_size"
+                zjun:buttonTopOffset="@dimen/content_button_text_size"
+                zjun:percentTextSize="@dimen/content_percent_text_size"
                 zjun:showMode="ALL"
                 zjun:unitText="分"
                 zjun:unitTextAlignMode="CN"
-                zjun:unitTextSize="20sp" />
+                zjun:unitTextSize="@dimen/content_button_text_size" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,37 +70,37 @@
 
                 <ImageButton
                     android:id="@+id/on_off_wifi_bt_id"
-                    android:layout_height="100dp"
+                    android:layout_height="@dimen/content_imgbtn_height"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:padding="20dp"
+                    android:padding="@dimen/content_imgbtn_padding"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_menu_wifi" />
 
                 <ImageButton
                     android:id="@+id/on_off_bluetooth_bt_id"
-                    android:layout_height="100dp"
+                    android:layout_height="@dimen/content_imgbtn_height"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:padding="20dp"
+                    android:padding="@dimen/content_imgbtn_padding"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_menu_bluetooth" />
 
                 <ImageButton
                     android:id="@+id/on_off_mute_bt_id"
-                    android:layout_height="100dp"
+                    android:layout_height="@dimen/content_imgbtn_height"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:padding="20dp"
+                    android:padding="@dimen/content_imgbtn_padding"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_menu_mute" />
 
                 <ImageButton
                     android:id="@+id/on_off_flashlight_bt_id"
-                    android:layout_height="100dp"
+                    android:layout_height="@dimen/content_imgbtn_height"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:padding="20dp"
+                    android:padding="@dimen/content_imgbtn_padding"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_icon_flashlight_close" />
             </TableRow>
@@ -168,7 +168,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/content_imgbtn_height"
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:padding="@dimen/activity_vertical_margin"
@@ -192,7 +192,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/content_imgbtn_height"
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:padding="@dimen/activity_vertical_margin"

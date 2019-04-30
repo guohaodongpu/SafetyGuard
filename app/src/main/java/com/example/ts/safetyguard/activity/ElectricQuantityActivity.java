@@ -33,11 +33,11 @@ public class ElectricQuantityActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 StringBuilder sb = new StringBuilder();
-                int rawlevel = intent.getIntExtra("level", -1); //电池电量
+                int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1); //电池电量
                 //Log.d("level", String .valueOf(rawlevel));
-                int scale = intent.getIntExtra("scale", -1);   //电池最大容量
-                int status = intent.getIntExtra("status", -1);  //电池状态
-                int health = intent.getIntExtra("health", -1);   //电池健康度
+                int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);   //电池最大容量
+                int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);  //电池状态
+                int health = intent.getIntExtra(BatteryManager.EXTRA_HEALTH, -1);   //电池健康度
                 int plugType = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED,0);
                 int level = -1;
 

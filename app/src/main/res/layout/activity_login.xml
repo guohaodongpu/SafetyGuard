@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sign_in_margin_top"
                 android:text="@string/add_qq_describe"
-                android:textSize="15sp" />
+                android:textSize="@dimen/sign_in_text_size" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textSize="25sp" />
+                    android:textSize="@dimen/sign_in_edit_size" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -69,7 +69,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textSize="25sp" />
+                    android:textSize="@dimen/sign_in_edit_size" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -78,16 +78,16 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/sign_in_margin_top_btn"
+                android:layout_marginBottom="@dimen/sign_in_margin_bottom"
                 android:background="@color/DeepSkyBlue"
                 android:text="@string/sign_in"
-                android:textColor="#ffffff"
-                android:textSize="17sp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/sign_in_btn_size" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="@dimen/sign_in_height"
                 android:orientation="vertical">
 
                 <TextView
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="18dp"
+                    android:layout_marginStart="@dimen/go_to_sign_margin_start_size"
                     android:text="@string/can_not_sign_in"
                     android:textSize="@dimen/go_to_sign_text_size"
                     android:textColor="@color/DeepSkyBlue" />
@@ -107,7 +107,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="right"
-                    android:layout_marginEnd="18dp"
+                    android:layout_marginEnd="@dimen/go_to_sign_margin_start_size"
                     android:text="@string/go_to_sign_up"
                     android:textSize="@dimen/go_to_sign_text_size"
                     android:textColor="@color/DeepSkyBlue" />

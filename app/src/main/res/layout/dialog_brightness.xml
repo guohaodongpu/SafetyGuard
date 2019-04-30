@@ -7,10 +7,10 @@
     <TextView
         android:id="@+id/textView_brightness_title"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/brightness_height"
         android:gravity="center"
         android:text="@string/brightness_title"
-        android:textColor="#532164" />
+        android:textColor="@color/purple" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,14 +18,14 @@
 
         <SeekBar
             android:id="@+id/seekBar_system_brightness"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="25dp"
+            android:layout_width="@dimen/brightness_width"
+            android:layout_height="@dimen/brightness_height"
+            android:layout_marginLeft="@dimen/brightness_height"
             android:max="255" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/brightness_height"
             android:gravity="center"
             android:id="@+id/textView_system_brightness"
             android:text="@string/system_brightness"/>

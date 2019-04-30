@@ -2,6 +2,7 @@ package com.example.ts.safetyguard.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.BatteryManager;
 
 import com.example.ts.safetyguard.R;
 
@@ -16,8 +17,8 @@ public class ElectricQuantityController {
 
     public String getElectricQuantity(Intent intent) {
         mElectricQuantity = new StringBuilder();
-        int rawlevel = intent.getIntExtra("level", -1);
-        int scale = intent.getIntExtra("scale", -1);
+        int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         int level = -1;
 
         if(rawlevel >= 0 && scale > 0){

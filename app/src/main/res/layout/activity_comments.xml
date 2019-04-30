@@ -85,8 +85,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginLeft="@dimen/email_margin"
+            android:layout_marginTop="@dimen/email_margin_top"
             android:layout_marginRight="@dimen/email_margin"
             android:background="@color/DeepSkyBlue"
             android:text="提交意见"
