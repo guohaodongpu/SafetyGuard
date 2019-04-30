@@ -34,7 +34,7 @@ public class ElectricQuantityActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 StringBuilder sb = new StringBuilder();
                 int rawlevel = intent.getIntExtra("level", -1); //电池电量
-                Log.d("level", String .valueOf(rawlevel));
+                //Log.d("level", String .valueOf(rawlevel));
                 int scale = intent.getIntExtra("scale", -1);   //电池最大容量
                 int status = intent.getIntExtra("status", -1);  //电池状态
                 int health = intent.getIntExtra("health", -1);   //电池健康度

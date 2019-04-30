@@ -51,6 +51,8 @@
     <string name="toast_close_flash_light_fail">关闭手电筒失败</string>
     <string name="toast_open_flash_light_success">开启手电筒成功</string>
     <string name="toast_open_flash_light_fail">开启手电筒失败</string>
+    <string name="toast_please_open_location">位置信息未打开，请打开</string>
+    <string name="toast_scanning">开始搜索...</string>
     <string name="air_mode">飞行模式: OFF</string>
     <string name="title_air_mode_on">飞行模式: ON</string>
     <string name="title_air_mode_off">飞行模式: OFF</string>
@@ -90,6 +92,7 @@
     <string name="battery_charge_WIRELESS">无线充电</string>
     <string name="battery">电池</string>
     <string name="wifi_list">Wifi列表</string>
+    <string name="signal_intensity">信号强度</string>
     <string name="start_scan">开始扫描</string>
     <string name="avail_memory_text">可用内存:</string>
     <string name="total_memory_text">手机总内存:</string>
@@ -104,4 +107,5 @@
     <string name="brightness_title">亮度调节</string>
     <string name="system_brightness">当前的亮度为:</string>
     <string name="dialog_notepad">输入备忘录</string>
+    
 </resources>

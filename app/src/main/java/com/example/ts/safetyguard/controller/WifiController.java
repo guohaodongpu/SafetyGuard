@@ -42,7 +42,7 @@ public class WifiController {
     public boolean openWifi() {
         if (isReadyWifi() && !getWifiStatus()) {
             mWifiManager.setWifiEnabled(true);
-            Log.d(TAG,"openWifi: ");
+            //Log.d(TAG,"openWifi: ");
             return true;
         } else {
             return false;
@@ -53,7 +53,7 @@ public class WifiController {
     public boolean closeWifi() {
         if (isReadyWifi() &&getWifiStatus()) {
             mWifiManager.setWifiEnabled(false);
-            Log.d(TAG,"closeWifi: ");
+            //Log.d(TAG,"closeWifi: ");
             return true;
         } else {
             return false;

@@ -38,6 +38,7 @@ public class WifiActivity extends AppCompatActivity {
     private ArrayAdapter mAdapter;
     private Timer mTimer = new Timer(true);
     private boolean mFlag;
+    private static final String mPerformClick = "performClick";
     private static final int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1;
     //设置权限之后回调函数中用于区别不同权限回调的自定义常量值
 
@@ -52,19 +53,19 @@ public class WifiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mWifiList.clear();
-                Log.d("WifiListClear", String.valueOf(mWifiList.size()));
+                //Log.d("WifiListClear", String.valueOf(mWifiList.size()));
                 registerPermission();
                 mFlag = false;
             }
         });
 
         if (!mWifiManager.isWifiEnabled()) {
-            Toast.makeText(this ,"Wifi",Toast.LENGTH_LONG).show();
             mWifiManager.setWifiEnabled(true);
+            Toast.makeText(this ,getString(R.string.toast_open_wifi_success),Toast.LENGTH_LONG).show();
         }
 
         if (!mLocationManager.isLocationEnabled()) {
-            Toast.makeText(this,"位置信息未打开，请打开",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,getString(R.string.toast_please_open_location),Toast.LENGTH_LONG).show();
         }
 
        mTimer.schedule(new TimerTask() {
@@ -72,7 +73,7 @@ public class WifiActivity extends AppCompatActivity {
             public void run() {
                 if (mFlag != true) {
                     Intent intent = new Intent();
-                    intent.setAction("performClick");
+                    intent.setAction(mPerformClick);
                     sendBroadcast(intent);
                 }
             }
@@ -89,7 +90,7 @@ public class WifiActivity extends AppCompatActivity {
         mAdapter = new ArrayAdapter<>(WifiActivity.this, android.R.layout.simple_list_item_1,mWifiList);
         //注册广播
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("performClick");
+        intentFilter.addAction(mPerformClick);
         registerReceiver(receiver,intentFilter);
     }
 
@@ -98,19 +99,19 @@ public class WifiActivity extends AppCompatActivity {
         intentFilter.addAction("android.net.wifi.SCAN_RESULTS");
         intentFilter.addAction("android.net.wifi.WIFI_STATE_CHANGED");
         registerReceiver(receiver,intentFilter);*/
-        Toast.makeText(this,"Scanning...",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,getString(R.string.toast_scanning),Toast.LENGTH_SHORT).show();
         //Android 9.0 将 WiFiManager 的 startScan() 方法标为了废弃，
         // 前台应用 2 分钟内只能使用 4 次startScan()，后台应用 30 分钟内只能调用 1次 startScan()，
         // 否则会直接返回 false 并且不会触发扫描操作。
         mWifiManager.startScan();
-        Log.d("startscan", String.valueOf(mWifiManager.startScan()) );
+        //Log.d("startscan", String.valueOf(mWifiManager.startScan()) );
         mScanResults = mWifiManager.getScanResults();
-        Log.d("mScanResults", String.valueOf(mScanResults.size()));
+        //Log.d("mScanResults", String.valueOf(mScanResults.size()));
 
         for (ScanResult sr : mScanResults) {
-            mWifiList.add(sr.SSID + "   " + "信号强度" + sr.level);
+            mWifiList.add(sr.SSID + "   " + getString(R.string.signal_intensity) + sr.level);
         }
-        Log.d("mWifiList", String.valueOf(mWifiList.size()));
+        //Log.d("mWifiList", String.valueOf(mWifiList.size()));
 
         mAdapter.notifyDataSetChanged();//界面重绘，保留原有位置、数据信息
         mListView.setAdapter(mAdapter);
