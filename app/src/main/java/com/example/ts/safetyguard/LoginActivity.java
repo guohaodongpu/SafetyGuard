@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     private void toSignUp() {
         ComponentName componetName = new ComponentName(
                 "com.example.xue.myqq",
-                "com.example.xue.myqq.LoginActivity");
+                "com.example.xue.myqq.activity.LoginActivity");
 
         try {
             Intent intent = new Intent();
@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean signIn(String username, String password) {
         Uri uri = Uri.parse(USERURI);
-        String encryptedPassword = MD5.getMD5(username + password);
+        String encryptedPassword = MD5.getMD5(password);
         Cursor cursor = mContentResolver.query(uri, null,
                 "account = ? and password = ?", new String[]{username, encryptedPassword},
                 null);
