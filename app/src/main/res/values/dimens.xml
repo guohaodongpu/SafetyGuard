@@ -36,4 +36,7 @@
     <dimen name="notepad_width">30dp</dimen>
     <dimen name="notepad_text_size">20dp</dimen>
     <dimen name="notepad_text_margin_top">10dp</dimen>
+    <dimen name="wifi_text_view_margin_buttom">14dp</dimen>
+    <dimen name="wifi_list_height">30dp</dimen>
+    <dimen name="wifi_text_size">20dp</dimen>
 </resources>

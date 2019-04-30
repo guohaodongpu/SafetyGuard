@@ -18,11 +18,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.example.ts.safetyguard.R;
+import com.example.ts.safetyguard.adapter.WifiAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -35,7 +36,6 @@ public class WifiActivity extends AppCompatActivity {
     private WifiManager mWifiManager;
     private LocationManager mLocationManager;
     private List<ScanResult> mScanResults;
-    private ArrayAdapter mAdapter;
     private Timer mTimer = new Timer(true);
     private boolean mFlag;
     private static final String mPerformClick = "performClick";
@@ -87,7 +87,6 @@ public class WifiActivity extends AppCompatActivity {
         mButton = findViewById(R.id.scan_button);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         mLocationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-        mAdapter = new ArrayAdapter<>(WifiActivity.this, android.R.layout.simple_list_item_1,mWifiList);
         //注册广播
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(mPerformClick);
@@ -107,14 +106,7 @@ public class WifiActivity extends AppCompatActivity {
         //Log.d("startscan", String.valueOf(mWifiManager.startScan()) );
         mScanResults = mWifiManager.getScanResults();
         //Log.d("mScanResults", String.valueOf(mScanResults.size()));
-
-        for (ScanResult sr : mScanResults) {
-            mWifiList.add(sr.SSID + "   " + getString(R.string.signal_intensity) + sr.level);
-        }
-        //Log.d("mWifiList", String.valueOf(mWifiList.size()));
-
-        mAdapter.notifyDataSetChanged();//界面重绘，保留原有位置、数据信息
-        mListView.setAdapter(mAdapter);
+        mListView.setAdapter(new WifiAdapter(this,mScanResults));
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
