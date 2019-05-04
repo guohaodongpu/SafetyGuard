@@ -134,4 +134,10 @@ public class ElectricQuantityActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+    }
 }
