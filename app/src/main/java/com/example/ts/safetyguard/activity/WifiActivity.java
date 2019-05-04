@@ -161,8 +161,8 @@ public class WifiActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         mTimer.cancel();
         unregisterReceiver(receiver);
+        super.onDestroy();
     }
 }
