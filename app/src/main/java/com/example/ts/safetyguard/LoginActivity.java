@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private EditText mUsernameView;
     private EditText mPasswordView;
-    private TextView mSignUpTextView;
     private Button mSignInButton;
 
     private ContentResolver mContentResolver;
@@ -43,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         mUsernameView = findViewById(R.id.qq_username_id);
         mPasswordView = findViewById(R.id.qq_password_id);
         mSignInButton = findViewById(R.id.qq_sign_in_button_id);
-        mSignUpTextView = findViewById(R.id.go_to_sign_up_id);
     }
 
     private void initEvent() {
@@ -53,29 +51,23 @@ public class LoginActivity extends AppCompatActivity {
                 click();
             }
         });
-
-        mSignUpTextView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toSignUp();
-            }
-        });
     }
 
-    private void toSignUp() {
-        ComponentName componetName = new ComponentName(
-                "com.example.xue.myqq",
-                "com.example.xue.myqq.activity.LoginActivity");
-
-        try {
-            Intent intent = new Intent();
-            intent.setComponent(componetName);
-            startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(getApplicationContext(), getString(R.string.toast_no_have_find_qq),
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
+    //注册
+//    private void toSignUp() {
+//        ComponentName componetName = new ComponentName(
+//                "com.example.xue.myqq",
+//                "com.example.xue.myqq.activity.LoginActivity");
+//
+//        try {
+//            Intent intent = new Intent();
+//            intent.setComponent(componetName);
+//            startActivity(intent);
+//        } catch (ActivityNotFoundException e) {
+//            Toast.makeText(getApplicationContext(), getString(R.string.toast_no_have_find_qq),
+//                    Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     private void click() {
         String username = mUsernameView.getText().toString().trim();

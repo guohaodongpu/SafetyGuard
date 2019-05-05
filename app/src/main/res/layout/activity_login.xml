@@ -85,34 +85,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/sign_in_btn_size" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/sign_in_height"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="@dimen/go_to_sign_margin_start_size"
-                    android:text="@string/can_not_sign_in"
-                    android:textSize="@dimen/go_to_sign_text_size"
-                    android:textColor="@color/DeepSkyBlue" />
-
-                <TextView
-                    android:id="@+id/go_to_sign_up_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="right"
-                    android:layout_marginEnd="@dimen/go_to_sign_margin_start_size"
-                    android:text="@string/go_to_sign_up"
-                    android:textSize="@dimen/go_to_sign_text_size"
-                    android:textColor="@color/DeepSkyBlue" />
-            </RelativeLayout>
-
         </LinearLayout>
 
     </ScrollView>
