@@ -113,6 +113,7 @@ public class ElectricQuantityActivity extends AppCompatActivity {
                             break;
                         case BatteryManager.BATTERY_PLUGGED_WIRELESS:
                             sb.append(ElectricQuantityActivity.this.getString(R.string.battery_charge_WIRELESS));
+                            break;
                     }
                 }
                 mTextView.setText(sb.toString());
