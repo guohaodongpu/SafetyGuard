@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,7 @@ public class WifiActivity extends AppCompatActivity {
     private LocationManager mLocationManager;
     private List<ScanResult> mScanResults;
     private Timer mTimer = new Timer(true);
-    private boolean mFlag;
+    private boolean isFlag;
     private static final String mPerformClick = "performClick";
     private static final int PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION = 1;
     //设置权限之后回调函数中用于区别不同权限回调的自定义常量值
@@ -46,7 +47,7 @@ public class WifiActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi);
-        initEvent();
+        init();
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +56,7 @@ public class WifiActivity extends AppCompatActivity {
                 mWifiList.clear();
                 //Log.d("WifiListClear", String.valueOf(mWifiList.size()));
                 registerPermission();
-                mFlag = false;
+                isFlag = false;
             }
         });
 
@@ -66,12 +67,14 @@ public class WifiActivity extends AppCompatActivity {
 
         if (!mLocationManager.isLocationEnabled()) {
             Toast.makeText(this,getString(R.string.toast_please_open_location),Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
         }
 
        mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (mFlag != true) {
+                if (isFlag != true) {
                     Intent intent = new Intent();
                     intent.setAction(mPerformClick);
                     sendBroadcast(intent);
@@ -81,8 +84,8 @@ public class WifiActivity extends AppCompatActivity {
 
     }
 
-    private void initEvent() {
-        mFlag = true;
+    private void init() {
+        isFlag = true;
         mListView = findViewById(R.id.wifi_list_view);
         mButton = findViewById(R.id.scan_button);
         mWifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -124,12 +127,11 @@ public class WifiActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
                     PERMISSIONS_REQUEST_CODE_ACCESS_COARSE_LOCATION);
-
         } else {
             if (mWifiManager.isWifiEnabled()) {
                 scanWifi();
             } else {
-                mFlag = true;
+                isFlag = true;
                 mTimer.cancel();
                 mWifiManager.setWifiEnabled(true);
                 return;

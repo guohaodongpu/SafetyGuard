@@ -107,5 +107,9 @@
     <string name="brightness_title">亮度调节</string>
     <string name="system_brightness">当前的亮度为:</string>
     <string name="dialog_notepad">输入备忘录</string>
+    <string name="electric_quantity_attention">低电量提示</string>
+    <string name="electric_quantity_less_than_twenty">电量已少于20%，请尽快充电</string>
+    <string name="notification_id">attention</string>
+    <string name="notification_des">电量提示</string>
     
 </resources>

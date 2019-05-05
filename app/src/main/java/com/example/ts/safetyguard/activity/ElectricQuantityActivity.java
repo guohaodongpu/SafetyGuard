@@ -1,9 +1,13 @@
 package com.example.ts.safetyguard.activity;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
 import android.os.BatteryManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -70,6 +74,8 @@ public class ElectricQuantityActivity extends AppCompatActivity {
                     case BatteryManager.BATTERY_HEALTH_COLD:
                         healthStatus = ElectricQuantityActivity.this.getString(R.string.battery_health_cold);
                         break;
+                    default:
+                        break;
 
                 }
                 sb.append(ElectricQuantityActivity.this.getString(R.string.battery_health) + healthStatus + "\n");
@@ -96,6 +102,8 @@ public class ElectricQuantityActivity extends AppCompatActivity {
                             sb.append(ElectricQuantityActivity.this.getString(R.string.low_battery_need_charging));
                         else if (level <= 100) {
                             sb.append(ElectricQuantityActivity.this.getString(R.string.battery_not_charging));
+                        } else {
+
                         }
                         break;
 
@@ -114,14 +122,35 @@ public class ElectricQuantityActivity extends AppCompatActivity {
                         case BatteryManager.BATTERY_PLUGGED_WIRELESS:
                             sb.append(ElectricQuantityActivity.this.getString(R.string.battery_charge_WIRELESS));
                             break;
+                        default:
+                            break;
                     }
                 }
                 mTextView.setText(sb.toString());
-
+                if (level == 20) {
+                    sendNotification();
+                }
             }
         };
         IntentFilter electricQuantityFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(mReceiver,electricQuantityFilter);
+    }
+
+    private void sendNotification(){
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        String id = getString(R.string.notification_id);
+        String des = getString(R.string.notification_des);
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel notificationChannel = new NotificationChannel(id,des,importance);
+        notificationManager.createNotificationChannel(notificationChannel);
+        Notification notification = new Notification.Builder(this,id)
+                .setSmallIcon(R.drawable.android)
+                .setContentTitle(getString(R.string.electric_quantity_attention))
+                .setContentText(getString(R.string.electric_quantity_less_than_twenty))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.android))
+                .build();
+        notificationManager.notify(100,notification);
+
     }
 
     @Override
