@@ -80,8 +80,8 @@ public class NotepadActivity extends AppCompatActivity{
         AlertDialog.Builder builder = new AlertDialog.Builder(NotepadActivity.this);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_notepad,null);
         mEdit_dialog_notepad = dialogView.findViewById(R.id.edit_dialog_notepad);
-        builder.setTitle("添加事件");
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.add_event);
+        builder.setPositiveButton(R.string.sure_event, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String data = mEdit_dialog_notepad.getText().toString();
@@ -94,7 +94,7 @@ public class NotepadActivity extends AppCompatActivity{
                 }
             }
         });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.exit_event, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -109,7 +109,7 @@ public class NotepadActivity extends AppCompatActivity{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.d("MyAsyncTask","正在加载记事本");
+//            Log.d("MyAsyncTask","正在加载记事本");
         }
 
         @Override

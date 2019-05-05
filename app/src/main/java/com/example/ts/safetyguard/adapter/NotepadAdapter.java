@@ -81,8 +81,8 @@ public class NotepadAdapter extends RecyclerView.Adapter<NotepadAdapter.ViewHold
         final EditText edit_dialog_notepad = dialogView.findViewById(R.id.edit_dialog_notepad);
         mData = mSharedPreferences.getString("" + i ,"");
         edit_dialog_notepad.setText(mData);
-        builder.setTitle("编辑记事本");
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setTitle(mContext.getString(R.string.edit_event));
+        builder.setPositiveButton(R.string.sure_event, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String newData = edit_dialog_notepad.getText().toString();

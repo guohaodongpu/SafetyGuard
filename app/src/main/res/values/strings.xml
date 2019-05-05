@@ -111,5 +111,9 @@
     <string name="electric_quantity_less_than_twenty">电量已少于20%，请尽快充电</string>
     <string name="notification_id">attention</string>
     <string name="notification_des">电量提示</string>
-    
+    <string name="add_event">添加事件</string>
+    <string name="sure_event">确定</string>
+    <string name="exit_event">取消</string>
+    <string name="edit_event">编辑记事本</string>
+
 </resources>
